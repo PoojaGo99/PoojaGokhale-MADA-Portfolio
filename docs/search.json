@@ -60,7 +60,7 @@
     "href": "aboutme.html",
     "title": "About me",
     "section": "",
-    "text": "I am a 2nd year PhD student in the Pharmaceutical Health Services, Outcomes and Policy department. I completed my PharmD degree from India before joining the PhD program at UGA.\n\n\n\nCost-effectiveness analyses, Systematic reviews, Meta-analyses, Claims data analyses\n\n\n\nI have some experience with statistics - I have taken the following courses at UGA - STAT 6210, STAT 6220, STAT 6230, and ERSH 8320 I have used R before to run a meta-analysis, and for some regression analysis-based projects.\n\n\n\nI want to become more proficient at R.\n\n\n\nI have decided to read 52 books this year. I am halfway through the first one already.\n\n\n\nHeadshot"
+    "text": "I am a 2nd year PhD student in the Pharmaceutical Health Services, Outcomes and Policy department. I completed my PharmD degree from India before joining the PhD program at UGA.\n\n\n\nCost-effectiveness analyses, Systematic reviews, Meta-analyses, Claims data analyses\n\n\n\nI have some experience with statistics - I have taken the following courses at UGA - STAT 6210, STAT 6220, STAT 6230, and ERSH 8320 I have used R before to run a meta-analysis, and for some regression analysis-based projects.\n\n\n\nI want to become more proficient at R.\n\n\n\nI have decided to read 52 books this year. I am halfway through the first one already.\n\n\n\nHeadshot\n\n\nI am hoping to work on a network meta-analysis soon and you can find an interesting video here"
   },
   {
     "objectID": "index.html",
@@ -228,6 +228,6 @@
     "href": "aboutme.html#fun-fact",
     "title": "About me",
     "section": "",
-    "text": "I have decided to read 52 books this year. I am halfway through the first one already.\n\n\n\nHeadshot"
+    "text": "I have decided to read 52 books this year. I am halfway through the first one already.\n\n\n\nHeadshot\n\n\nI am hoping to work on a network meta-analysis soon and you can find an interesting video here"
   }
 ]
