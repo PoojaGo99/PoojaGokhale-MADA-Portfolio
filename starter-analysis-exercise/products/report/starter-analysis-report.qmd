@@ -39,7 +39,7 @@ _Write a summary of your project._
 _Provide enough background on your topic that others can understand the why and how of your analysis_ 
 
 ## Description of data and data source
-_Describe what the data is, what it contains, where it is from, etc. Eventually this might be part of a methods section._
+_The data set contains information regarding height, weight, and gender of 14 individuals. I have added the following two columns - Number of siblings, and Race. The number of siblings are reported as an integer number \>= 0. The Race variable has the following categories: White, Black, Hispanic, Asian, and Other. White and Black categories refer to Non-Hispanic White and Black individuals respectively. Hispanic category includes Hispanic and Latino individuals. Asian includes South and East Asian individuals. Those other than these are classified as Other. This variable s assumed to have self-reported information._
 
 ## Questions/Hypotheses to be addressed
 _State the research questions you plan to answer with this analysis._

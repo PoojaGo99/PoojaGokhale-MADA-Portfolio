@@ -116,7 +116,7 @@
     "href": "starter-analysis-exercise/products/report/starter-analysis-report.html#description-of-data-and-data-source",
     "title": "Manuscript/Report Template for a Data Analysis Project",
     "section": "2.2 Description of data and data source",
-    "text": "2.2 Description of data and data source\nDescribe what the data is, what it contains, where it is from, etc. Eventually this might be part of a methods section."
+    "text": "2.2 Description of data and data source\nThe data set contains information regarding height, weight, and gender of 14 individuals. I have added the following two columns - Number of siblings, and Race. The number of siblings are reported as an integer number &gt;= 0. The Race variable has the following categories: White, Black, Hispanic, Asian, and Other. White and Black categories refer to Non-Hispanic White and Black individuals respectively. Hispanic category includes Hispanic and Latino individuals. Asian includes South and East Asian individuals. Those other than these are classified as Other. This variable s assumed to have self-reported information."
   },
   {
     "objectID": "starter-analysis-exercise/products/report/starter-analysis-report.html#questionshypotheses-to-be-addressed",
