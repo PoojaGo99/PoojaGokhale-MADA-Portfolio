@@ -35,6 +35,8 @@ _Write a summary of your project._
 
 # Introduction 
 
+## Mohammed Zuber contributed to this exercise.
+
 ## General Background Information
 _Provide enough background on your topic that others can understand the why and how of your analysis_ 
 
@@ -105,6 +107,21 @@ _To get some further insight into your data, if reasonable you could compute sim
 #| echo: FALSE
 knitr::include_graphics(here("starter-analysis-exercise","results","figures","height-weight-stratified.png"))
 ```
+@fig-result2 shows the figure for Height vs Race
+```{r}
+#| label: fig-result2
+#| fig-cap: "Height vs Race"
+#| echo: FALSE
+knitr::include_graphics(here("starter-analysis-exercise","results","figures","height and Race boxplot 2.png"))
+```
+
+@fig-result3 shows the figure for Number of Siblings vs Weight
+```{r}
+#| label: fig-result3
+#| fig-cap: "Number of siblings vs Weight"
+#| echo: FALSE
+knitr::include_graphics(here("starter-analysis-exercise","results","figures","weight-siblings-scatterplot2.png"))
+```
 
 
 ## Full analysis
@@ -121,6 +138,14 @@ resulttable2 = readRDS(here("starter-analysis-exercise","results","tables-files"
 knitr::kable(resulttable2)
 ```
 
+@tbl-resulttable3 shows a summary of linear model predicting height using number of siblings and race.
+```{r}
+#| label: tbl-resulttable3
+#| tbl-cap: "Linear model fit table 2."
+#| echo: FALSE
+resulttable3 = readRDS(here("starter-analysis-exercise","results","tables-files","resulttable3.rds"))
+knitr::kable(resulttable3)
+```
 
 {{< pagebreak >}}
 

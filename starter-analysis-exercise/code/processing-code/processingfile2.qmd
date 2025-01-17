@@ -99,8 +99,7 @@ skimr::skim(d3)
 ```
 ```{r}
 d3 <- d3 %>%
-  rename(Numberofsiblings = "Number of siblings ")
-d3$Numberofsiblings <- as.factor(d3$Numberofsiblings)
+  rename(Numberofsiblings = "Number of siblings")
 skimr::skim(d3)
 ```
 

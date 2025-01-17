@@ -114,7 +114,7 @@ ggsave(filename = figure_file, plot=p4)
 ```{r}
 p5 <- mydata %>% ggplot(aes(x = Race, y = Height, fill = Race)) +
   geom_boxplot() +
-  labs(x = "Race", y = "Height", title = "Boxplot of Height and Eye Color") +
+  labs(x = "Race", y = "Height", title = "Boxplot of Height and Race") +
   theme_minimal()
 
 boxplot_file <- here("starter-analysis-exercise", "results", "figures", "height and Race boxplot 2.png")
@@ -126,10 +126,10 @@ plot(p5)
 
 p6 <- mydata %>% ggplot(aes(x = Weight, y = Numberofsiblings)) +
   geom_point(color = "cyan", size = 3, alpha = 0.7) +
-  labs(x = "Weight", y = "Numberofsiblings", title = "Scatterplot of Weight vs. Number of siblings") +
+  labs(x = "Weight", y = "Numberofsiblings", title = "Scatterplot ofNumber of siblings vs Weight") +
   theme_minimal()
 
-scatterplot_file <- here("starter-analysis-exercise", "results", "figures", "weight-waist_size-scatterplot2.png")
+scatterplot_file <- here("starter-analysis-exercise", "results", "figures", "weight-siblings-scatterplot2.png")
 ggsave(filename = scatterplot_file, plot = p6)
 plot(p6)
 ```
