@@ -1,5 +1,136 @@
 ---
 title: "R Coding Exercise"
 ---
+Load the dslabs package
+```{r}
+library(dslabs)
+```
 
-Placeholder file for the future R coding exercise.
+Help file for the gapminder data
+```{r}
+help(gapminder)
+```
+
+Look at the data structure
+```{r}
+str(gapminder)
+```
+
+Summarize the data
+```{r}
+summary(gapminder)
+```
+
+Determine the type of object gapminder is
+```{r}
+class(gapminder)
+```
+
+Load the tidyverse library
+```{r}
+library(tidyverse)
+```
+
+Create a dataset with only African countries
+```{r}
+africadata = gapminder %>% filter (continent=="Africa")
+```
+
+Look at the data structure of africadata
+```{r}
+str(africadata)
+```
+
+Summarize the data
+```{r}
+summary(africadata)
+```
+
+Create a new object - with infant mortality and life expectancy
+```{r}
+africa_mortality_expectancy = africadata %>% select(infant_mortality, life_expectancy)
+```
+
+Look at the data structure and summarize the data
+```{r}
+str(africa_mortality_expectancy)
+summary(africa_mortality_expectancy)
+```
+
+Create a new object - with population and life expectancy
+```{r}
+africa_population_expectancy = africadata %>% select(population, life_expectancy)
+```
+
+Look at the data structure and summarize the data
+```{r}
+str(africa_population_expectancy)
+summary(africa_population_expectancy)
+```
+
+Plot for life expectancy as a function of infant mortality
+```{r}
+ggplot(data=africa_mortality_expectancy, mapping=aes(x=infant_mortality, y=life_expectancy)) + geom_point()
+```
+
+Plot for life expectancy as a function of population
+```{r}
+ggplot(data=africa_population_expectancy, mapping=aes(x=population, y=life_expectancy)) + geom_point() + scale_x_log10() 
+```
+
+Look at the africadata
+```{r}
+summary(africadata)
+```
+
+We have data for the same country multiple times (over multiple years) - the data spans time from 1960 to 2016, so the population grows over time. Since we have multiple years of data for multiple countries, it is difficult to identify patterns.
+We can take a look at a single year and try to see if the plot looks different.
+
+First, find missing values in africadata by year.
+
+```{r}
+missing_infant_mortality = africadata %>% 
+  group_by(year) %>%
+  summarize(missing_values = sum(is.na(infant_mortality)))
+print(missing_infant_mortality)
+```
+
+We can see that there are missing values upto 1980, and then in 2016.
+Create an object with only data from 2000.
+
+```{r}
+africa2000data = africadata %>% filter(year==2000)
+```
+
+Look at the data structure and summarize the data
+```{r}
+str(africa2000data)
+summary(africa2000data)
+```
+
+Plot for life expectancy as a function of infant mortality
+```{r}
+ggplot(data=africa2000data, mapping=aes(x=infant_mortality, y=life_expectancy)) +geom_point()
+```
+
+Plot for life expectancy as a function of population
+```{r}
+ggplot(data=africa2000data, mapping=aes(x=population, y=life_expectancy)) + geom_point() + scale_x_log10()
+```
+
+Fitting a model to predict life expectancy using infant mortality
+```{r}
+lm_mortality = lm(life_expectancy ~ infant_mortality, data=africa2000data)
+summary(lm_mortality)
+```
+
+Fitting a model to predict life expectancy using population
+```{r}
+lm_population = lm(life_expectancy ~ population, data=africa2000data)
+summary(lm_population)
+```
+
+We can see that for the first model (using infant mortality), the p-value for infant mortality is less than 0.05, thus we can conclude that infant mortality is a useful predictor of life expectancy. The R-squared is 0.005176. Thus, while infant mortality is a useful predictor, this model is not able to explain a large potion of the variability in the life expectancy, and other variables should be considered.
+
+For the second model (using population), the p-value for population is greater than 0.05, thus we can conclude that population is not a useful predictor of life expectancy.
+

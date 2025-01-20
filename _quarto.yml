@@ -19,7 +19,7 @@ website:
         href: https://github.com/PoojaGo99/PoojaGokhale-MADA-Portfolio        
 format:
   html:
-    theme: quartz
+    theme: cayman
     highlight: zenburn
     css: styles.css
     toc: FALSE
