@@ -6,6 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2025-01-21">
 
 <title>R Coding Exercise – Pooja Gokhale Data Analysis Portfolio</title>
 <style>
@@ -69,10 +70,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-86daaaaad7353f9cc0c554efc1dd6d94.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-d4be639c637f3db3c684c66cefad7e0c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-6ab5e0891aed6e954066009cd4eecacc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -166,6 +167,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">R Coding Exercise</h1>
+<p class="subtitle lead">Contributed by: Prasanga Paudel</p>
 </div>
 
 
@@ -173,6 +175,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 21, 2025</p>
+    </div>
+  </div>
   
     
   </div>
@@ -184,7 +192,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>Load the dslabs package</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dslabs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dslabs)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr) <span class="co">#added skimr</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Help file for the gapminder data</p>
 <div class="cell">
@@ -253,7 +262,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
 ✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.0     ✔ tibble    3.2.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
 ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
 ✔ purrr     1.0.2     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
@@ -565,8 +574,254 @@ F-statistic: 0.2549 on 1 and 49 DF,  p-value: 0.6159</code></pre>
 </div>
 <p>We can see that for the first model (using infant mortality), the p-value for infant mortality is less than 0.05, thus we can conclude that infant mortality is a useful predictor of life expectancy. The R-squared is 0.005176. Thus, while infant mortality is a useful predictor, this model is not able to explain a large potion of the variability in the life expectancy, and other variables should be considered.</p>
 <p>For the second model (using population), the p-value for population is greater than 0.05, thus we can conclude that population is not a useful predictor of life expectancy.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(movielens)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="this-section-is-contributed-by-prasanga-paudel" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> This section is contributed by Prasanga Paudel</h1>
+<section id="discriptive-statistics" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="discriptive-statistics"><span class="header-section-number">1.1</span> Discriptive statistics</h2>
+<p>We will use the movielens dataset from the dslab. The discriptive stat for the datasets will be discussed in this section.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(<span class="st">"movielens"</span>) <span class="co">#looking a the help file for movielens data</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(movielens) <span class="co"># getting an overview of the data structire</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   100004 obs. of  7 variables:
+ $ movieId  : int  31 1029 1061 1129 1172 1263 1287 1293 1339 1343 ...
+ $ title    : chr  "Dangerous Minds" "Dumbo" "Sleepers" "Escape from New York" ...
+ $ year     : int  1995 1941 1996 1981 1989 1978 1959 1982 1992 1991 ...
+ $ genres   : Factor w/ 901 levels "(no genres listed)",..: 762 510 899 120 762 836 81 762 844 899 ...
+ $ userId   : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ rating   : num  2.5 3 3 2 4 2 2 2 3.5 2 ...
+ $ timestamp: int  1260759144 1260759179 1260759182 1260759185 1260759205 1260759151 1260759187 1260759148 1260759125 1260759131 ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(movielens) <span class="co"># getting a summary of the movielens dataset</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    movieId          title                year     
+ Min.   :     1   Length:100004      Min.   :1902  
+ 1st Qu.:  1028   Class :character   1st Qu.:1987  
+ Median :  2406   Mode  :character   Median :1995  
+ Mean   : 12549                      Mean   :1992  
+ 3rd Qu.:  5418                      3rd Qu.:2001  
+ Max.   :163949                      Max.   :2016  
+                                     NA's   :7     
+                  genres          userId        rating        timestamp        
+ Drama               : 7757   Min.   :  1   Min.   :0.500   Min.   :7.897e+08  
+ Comedy              : 6748   1st Qu.:182   1st Qu.:3.000   1st Qu.:9.658e+08  
+ Comedy|Romance      : 3973   Median :367   Median :4.000   Median :1.110e+09  
+ Drama|Romance       : 3462   Mean   :347   Mean   :3.544   Mean   :1.130e+09  
+ Comedy|Drama        : 3272   3rd Qu.:520   3rd Qu.:4.000   3rd Qu.:1.296e+09  
+ Comedy|Drama|Romance: 3204   Max.   :671   Max.   :5.000   Max.   :1.477e+09  
+ (Other)             :71588                                                    </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(movielens) <span class="co"># obtaining the type of object movielens is</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "data.frame"</code></pre>
+</div>
+</div>
+<p>We will look into the variable year to find a year that will have high number of observation so that we can use it for our analysis.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(movielens<span class="sc">$</span>year)  <span class="co"># creating a table for variable year</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+1902 1915 1916 1917 1918 1919 1920 1921 1922 1923 1924 1925 1926 1927 1928 1929 
+   6    2    1    2    2    1   15   12   28    3   10   40   20   38   21   18 
+1930 1931 1932 1933 1934 1935 1936 1937 "rval" 1939 1940 1941 1942 1943 1944 1945 
+  31   98   44   74   75   73   65  125  100  288  317  254  221   42  162   75 
+1946 1947 1948 1949 1950 1951 1952 1953 1954 1955 1956 1957 1958 1959 1960 1961 
+ 193   87  119   99  236  243  152  218  346  290  170  316  246  368  304  296 
+1962 1963 1964 1965 1966 1967 1968 1969 1970 1971 1972 1973 1974 1975 1976 1977 
+ 368  352  429  249  226  434  473  282  295  641  449  525  540  712  471  674 
+1978 1979 1980 1981 1982 1983 1984 1985 1986 1987 1988 1989 1990 1991 1992 1993 
+ 602  885 1123  970 1240 1014 1581 1427 1769 1646 1689 2198 2105 1914 2301 4214 
+1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 
+5861 6635 5109 4060 4019 5034 4054 3442 3090 2508 2879 1852 1786 1606 1544 1375 
+2010 2011 2012 2013 2014 2015 2016 
+1238  926  939  839  798  535  124 </code></pre>
+</div>
+</div>
+<p>I will pick year 1995 as it has one of the highest number of movies.</p>
+</section>
+<section id="data-summary-for-the-1995-dataset" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="data-summary-for-the-1995-dataset"><span class="header-section-number">1.2</span> Data Summary for the 1995 dataset</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>year1995 <span class="ot">&lt;-</span> movielens <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year <span class="sc">==</span><span class="dv">1995</span>) <span class="co">#filtering year-2000 to make a new dataset</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(year1995) <span class="co"># getting an overview of the data structire of 1995 dataset</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   6635 obs. of  7 variables:
+ $ movieId  : int  31 10 17 39 47 50 52 62 110 144 ...
+ $ title    : chr  "Dangerous Minds" "GoldenEye" "Sense and Sensibility" "Clueless" ...
+ $ year     : int  1995 1995 1995 1995 1995 1995 1995 1995 1995 1995 ...
+ $ genres   : Factor w/ 901 levels "(no genres listed)",..: 762 124 820 687 888 743 646 762 271 596 ...
+ $ userId   : int  1 2 2 2 2 2 2 2 2 2 ...
+ $ rating   : num  2.5 4 5 5 4 4 3 3 4 3 ...
+ $ timestamp: int  1260759144 835355493 835355681 835355604 835355552 835355586 835356031 835355749 835355532 835356016 ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(year1995) <span class="co"># geting a summary of the dataset </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    movieId            title                year     
+ Min.   :     1.0   Length:6635        Min.   :1995  
+ 1st Qu.:    32.0   Class :character   1st Qu.:1995  
+ Median :   110.0   Mode  :character   Median :1995  
+ Mean   :   268.8                      Mean   :1995  
+ 3rd Qu.:   186.0                      3rd Qu.:1995  
+ Max.   :136592.0                      Max.   :1995  
+                                                     
+                                         genres         userId     
+ Comedy|Romance                             : 510   Min.   :  1.0  
+ Comedy                                     : 468   1st Qu.:165.0  
+ Drama|Romance                              : 395   Median :363.0  
+ Action|Crime|Thriller                      : 370   Mean   :346.4  
+ Drama                                      : 334   3rd Qu.:520.0  
+ Adventure|Animation|Children|Comedy|Fantasy: 247   Max.   :671.0  
+ (Other)                                    :4311                  
+     rating        timestamp        
+ Min.   :0.500   Min.   :7.897e+08  
+ 1st Qu.:3.000   1st Qu.:8.476e+08  
+ Median :3.500   Median :9.575e+08  
+ Mean   :3.472   Mean   :1.010e+09  
+ 3rd Qu.:4.000   3rd Qu.:1.116e+09  
+ Max.   :5.000   Max.   :1.476e+09  
+                                    </code></pre>
+</div>
+</div>
+</section>
+<section id="comparing-new-dataset-with-the-overall-dataset" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="comparing-new-dataset-with-the-overall-dataset"><span class="header-section-number">1.3</span> Comparing new dataset with the overall dataset</h2>
+<p>This is the distribution of the rating variable in the entire dataset</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(movielens<span class="sc">$</span>rating, <span class="co"># this gives a histogram for rating</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Histogram of Ratings"</span>, <span class="co"># setting the title</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Rating"</span>,  <span class="co">#setting x-axis</span></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"orange"</span>,  <span class="co"># setting color</span></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">5</span>) <span class="co"># setting the bars to 5 as we have 5 ratings</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="coding-exercise_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This is the distribution of rating variable within the year 1995.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(year1995<span class="sc">$</span>rating, <span class="co"># this gives a histogram for rating</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Histogram of Ratings"</span>, <span class="co">#setting the title</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Rating"</span>,  <span class="co">#setting x-axis</span></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"orange"</span>, <span class="co">#setting the color</span></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">5</span>) <span class="co"># setting the bars to 5 as we have 5 ratings</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="coding-exercise_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="frequency-distrbution-of-rating-in-1995-dataset." class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="frequency-distrbution-of-rating-in-1995-dataset."><span class="header-section-number">1.4</span> frequency distrbution of Rating in 1995 dataset.</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Counting the occurrences of each rating</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>rating_counts <span class="ot">&lt;-</span> <span class="fu">table</span>(year1995<span class="sc">$</span>rating) <span class="co">#creating a table based on count</span></span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Displaying the table</span></span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(rating_counts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ 0.5    1  1.5    2  2.5    3  3.5    4  4.5    5 
+  53  246   93  555  210 1866  403 1922  282 1005 </code></pre>
+</div>
+</div>
+</section>
+<section id="boxplot-of-selected-genres-and-rating-year-1995" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="boxplot-of-selected-genres-and-rating-year-1995"><span class="header-section-number">1.5</span> Boxplot of selected genres and Rating ( year 1995)</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filtering the data to include only Drama, Comedy, and Action</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>filtered_data <span class="ot">&lt;-</span> <span class="fu">subset</span>(year1995, genres <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Drama"</span>, <span class="st">"Comedy"</span>, <span class="st">"Action"</span>))</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(filtered_data, <span class="fu">aes</span>(<span class="at">x =</span> genres, <span class="at">y =</span> rating)) <span class="sc">+</span> <span class="co">#setting the axis</span></span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Ratings across different genres"</span>,</span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Genres"</span>, <span class="co">#naming axis</span></span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Rating"</span>) <span class="sc">+</span></span>
+<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="co">#costomizing labels</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="coding-exercise_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="statistical-test-for-difference-in-ratings-among-genres" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="statistical-test-for-difference-in-ratings-among-genres"><span class="header-section-number">1.6</span> Statistical test for difference in ratings among genres</h2>
+<p>We will perform few test to analyse if there is a significant difference in ovies ratings among various ganres.</p>
+<section id="t-test" class="level3" data-number="1.6.1">
+<h3 data-number="1.6.1" class="anchored" data-anchor-id="t-test"><span class="header-section-number">1.6.1</span> T-test</h3>
+<p>We will perform a T-test to analyze if action and comedy genres have a statistically different ratings.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filtering the rating data for Action and Comedy genres</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>action_ratings <span class="ot">&lt;-</span> year1995<span class="sc">$</span>rating[year1995<span class="sc">$</span>genres <span class="sc">==</span> <span class="st">"Action"</span>]</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>comedy_ratings <span class="ot">&lt;-</span> year1995<span class="sc">$</span>rating[year1995<span class="sc">$</span>genres <span class="sc">==</span> <span class="st">"Comedy"</span>]</span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform a t-test, H0: action rating = comedy rating, Ha: action &gt; comedy</span></span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>t_test_result <span class="ot">&lt;-</span> <span class="fu">t.test</span>(action_ratings, comedy_ratings, <span class="at">alternative =</span> <span class="st">"greater"</span>) <span class="co">#testing the hypothesis that mean rating for the "Action" genre is greater than that for the "Comedy" genre.</span></span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the results</span></span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(t_test_result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  action_ratings and comedy_ratings
+t = -1.0358, df = 74.916, p-value = 0.8482
+alternative hypothesis: true difference in means is greater than 0
+95 percent confidence interval:
+ -0.3924665        Inf
+sample estimates:
+mean of x mean of y 
+ 2.983051  3.133547 </code></pre>
+</div>
+</div>
+<p>Since the p-value is greater than 0.05, we fail to reject the null. The rating between the two genres are not statistically significant.</p>
+</section>
+<section id="linear-regression" class="level3" data-number="1.6.2">
+<h3 data-number="1.6.2" class="anchored" data-anchor-id="linear-regression"><span class="header-section-number">1.6.2</span> Linear Regression</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Running the simple linear regression with ratings predicted using genres</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(rating <span class="sc">~</span> genres, <span class="at">data =</span> filtered_data)</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a><span class="co"># View the summary of the model</span></span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = rating ~ genres, data = filtered_data)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.9057 -0.4057 -0.1336  0.8665  2.0170 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)    2.9831     0.1394  21.405  &lt; 2e-16 ***
+genresComedy   0.1505     0.1479   1.018  0.30913    
+genresDrama    0.4226     0.1512   2.796  0.00529 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.07 on 858 degrees of freedom
+Multiple R-squared:  0.01823,   Adjusted R-squared:  0.01595 
+F-statistic: 7.968 on 2 and 858 DF,  p-value: 0.0003727</code></pre>
+</div>
+</div>
+<p>Results show that the Drama genre has a significantly higher rating than the base( Action) genre.</p>
 
 
+</section>
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

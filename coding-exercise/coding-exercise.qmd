@@ -1,9 +1,20 @@
 ---
 title: "R Coding Exercise"
+subtitle: "Contributed by: Prasanga Paudel"
+date: January 21, 2025
+format:
+  html:
+    toc: false
+    number-sections: true
+    highlight-style: github
 ---
+
+
 Load the dslabs package
 ```{r}
 library(dslabs)
+library(skimr) #added skimr
+
 ```
 
 Help file for the gapminder data
@@ -134,3 +145,127 @@ We can see that for the first model (using infant mortality), the p-value for in
 
 For the second model (using population), the p-value for population is greater than 0.05, thus we can conclude that population is not a useful predictor of life expectancy.
 
+
+```{r}
+help(movielens)
+```
+
+# This section is contributed by Prasanga Paudel
+
+
+```{r, echo=FALSE, message=FALSE}
+# we will load our own R packages 
+library(here)
+library(knitr)
+library(dslabs) # loading dslabs package as we will use movielens dataset from it
+library(tidyverse) # loading tidyverse package
+```
+
+
+## Discriptive statistics
+
+
+We will use the movielens dataset from the dslab. The discriptive stat for the datasets will be discussed in this section.
+
+```{r}
+help("movielens") #looking a the help file for movielens data
+str(movielens) # getting an overview of the data structire
+summary(movielens) # getting a summary of the movielens dataset
+class(movielens) # obtaining the type of object movielens is
+```
+
+
+ We will look into the variable year to  find a year that will have high number of observation so that we can use it for our analysis.
+ 
+
+```{r}
+table(movielens$year)  # creating a table for variable year
+```
+I will pick  year 1995 as it has one of the highest number of movies.
+
+
+## Data Summary for the 1995 dataset
+
+```{r}
+year1995 <- movielens %>% filter(year ==1995) #filtering year-2000 to make a new dataset
+str(year1995) # getting an overview of the data structire of 1995 dataset
+summary(year1995) # geting a summary of the dataset 
+``` 
+
+## Comparing new dataset with the overall dataset
+
+The below histogram shows the distribution of the rating variable in the entire dataset
+```{r}
+hist(movielens$rating, # this gives a histogram for rating
+     main = "Histogram of Ratings", # setting the title
+     xlab = "Rating",  #setting x-axis
+     col = "orange",  # setting color
+     breaks = 10) # setting the bars to 5 using 10 ratings
+```
+
+The below histogram shows the distribution of rating variable within the year 1995.
+```{r}
+hist(year1995$rating, # this gives a histogram for rating
+     main = "Histogram of Ratings", #setting the title
+     xlab = "Rating",  #setting x-axis
+     col = "orange", #setting the color
+     breaks = 10) # setting the bars to 10 and using 10 ratings
+```
+
+
+## frequency distrbution of Rating in 1995 dataset.
+```{r}
+# Counting the occurrences of each rating
+rating_counts <- table(year1995$rating) #creating a table based on count
+
+# Displaying the table
+print(rating_counts)
+
+```
+
+
+## Boxplot of selected genres and Rating ( year 1995)
+```{r}
+# Filtering the data to include only Drama, Comedy, and Action
+filtered_data <- subset(year1995, genres %in% c("Drama", "Comedy", "Action"))
+ggplot(filtered_data, aes(x = genres, y = rating)) + #setting the axis
+  geom_boxplot() +
+  labs(title = "Ratings across different genres",
+       x = "Genres", #naming axis
+       y = "Rating") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) #costomizing labels
+```
+
+## Statistical test for difference in ratings among genres
+
+We will perform few test to analyse if there is a significant difference in ovies ratings among various ganres.
+
+### T-test
+We will perform a T-test to analyze if action and comedy genres have a statistically different ratings.
+
+```{r}
+# Filtering the rating data for Action and Comedy genres
+action_ratings <- year1995$rating[year1995$genres == "Action"]
+comedy_ratings <- year1995$rating[year1995$genres == "Comedy"]
+
+# Perform a t-test, H0: action rating = comedy rating, Ha: action > comedy
+t_test_result <- t.test(action_ratings, comedy_ratings, alternative = "greater") #testing the hypothesis that mean rating for the "Action" genre is greater than that for the "Comedy" genre.
+
+# Display the results
+print(t_test_result)
+
+```
+
+Since the p-value is greater than 0.05, we fail to reject the null. The rating between the two genres are not statistically significant.
+
+
+### Linear Regression
+
+```{r}
+# Running the simple linear regression with ratings predicted using genres
+model <- lm(rating ~ genres, data = filtered_data)
+
+# View the summary of the model
+summary(model)
+```
+Results show that the Drama genre has a significantly higher rating than the base( Action) genre. 
