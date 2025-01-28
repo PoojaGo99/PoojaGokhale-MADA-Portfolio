@@ -14,8 +14,8 @@ website:
             file: starter-analysis-exercise/products/report/starter-analysis-report.qmd
           - text: "R Coding Exercise"
             file: coding-exercise/coding-exercise.qmd
-          - text: "Synthetic Data Exercise"
-            file: synthetic-data-exercise/synthetic-data.qmd
+           - text: "Synthetic Data Exercise"
+             file: synthetic-data-exercise/synthetic-data.qmd
     right:
       - icon: github 
         href: https://github.com/PoojaGo99/PoojaGokhale-MADA-Portfolio        
