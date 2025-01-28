@@ -1,5 +1,5 @@
 ---
-title: "Synthetic Data"
+title: "Synthetic Data Exercise"
 format:
   html:
     toc: false
