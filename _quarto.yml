@@ -18,7 +18,7 @@ website:
             file: synthetic-data-exercise/synthetic-data.qmd
     right:
       - icon: github 
-        href: https://poojago99.github.io/PoojaGokhale-MADA-Portfolio/        
+        href: https://github.com/PoojaGo99/PoojaGokhale-MADA-Portfolio     
 format:
   html:
     theme: cayman

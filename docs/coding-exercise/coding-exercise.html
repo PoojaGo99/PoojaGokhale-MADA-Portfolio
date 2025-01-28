@@ -140,6 +140,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../coding-exercise/coding-exercise.html">
  <span class="dropdown-text">R Coding Exercise</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../synthetic-data-exercise/synthetic-data.html">
+ <span class="dropdown-text">Synthetic Data Exercise</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -262,7 +266,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
 ✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ ggplot2   3.5.0     ✔ tibble    3.2.1
 ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
 ✔ purrr     1.0.2     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
@@ -688,13 +692,13 @@ F-statistic: 0.2549 on 1 and 49 DF,  p-value: 0.6159</code></pre>
 </section>
 <section id="comparing-new-dataset-with-the-overall-dataset" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="comparing-new-dataset-with-the-overall-dataset"><span class="header-section-number">1.3</span> Comparing new dataset with the overall dataset</h2>
-<p>This is the distribution of the rating variable in the entire dataset</p>
+<p>The below histogram shows the distribution of the rating variable in the entire dataset</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(movielens<span class="sc">$</span>rating, <span class="co"># this gives a histogram for rating</span></span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Histogram of Ratings"</span>, <span class="co"># setting the title</span></span>
 <span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Rating"</span>,  <span class="co">#setting x-axis</span></span>
 <span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"orange"</span>,  <span class="co"># setting color</span></span>
-<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">5</span>) <span class="co"># setting the bars to 5 as we have 5 ratings</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">10</span>) <span class="co"># setting the bars to 5 using 10 ratings</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -703,13 +707,13 @@ F-statistic: 0.2549 on 1 and 49 DF,  p-value: 0.6159</code></pre>
 </div>
 </div>
 </div>
-<p>This is the distribution of rating variable within the year 1995.</p>
+<p>The below histogram shows the distribution of rating variable within the year 1995.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(year1995<span class="sc">$</span>rating, <span class="co"># this gives a histogram for rating</span></span>
 <span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Histogram of Ratings"</span>, <span class="co">#setting the title</span></span>
 <span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Rating"</span>,  <span class="co">#setting x-axis</span></span>
 <span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"orange"</span>, <span class="co">#setting the color</span></span>
-<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">5</span>) <span class="co"># setting the bars to 5 as we have 5 ratings</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">10</span>) <span class="co"># setting the bars to 10 and using 10 ratings</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
