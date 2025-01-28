@@ -1,0 +1,109 @@
+---
+title: "Synthetic Data"
+format:
+  html:
+    toc: false
+    number-sections: true
+    highlight-style: github
+---
+
+Create a synthetic dataset for a clinical trial assessing second-line immune checkpoint inhibitor therapy (pembrolizumab) in the treatment of advanced urothelial carcinoma.
+
+Data was taken from a randomized controlled trial (RCT) by Bellmunt et al., 2017. 
+
+The data summary used to generate the synthetic data is as follows:
+Pembrolizumab group:
+Age (mean) in years = 67
+Male sex = 74.1%
+Current or former smoker = 61.3%
+Site of primary tumor in bladder or urethra = 85.9%
+Median overall survival = 10.3 months
+Median progression free survival = 2.1 months
+Adverse event leading to discontinuation = 5.6%
+
+Chemotherapy group:
+Age (mean) in years = 68
+Male sex = 74.3%
+Current or former smoker = 69.1%
+Site of primary tumor in bladder or urethra = 86.3%
+Median overall survival = 7.4 months
+Median progression free survival = 3.3 months
+Adverse event leading to discontinuation = 11%
+
+Create synthetic data using this data:
+```{r}
+# Set random seed for reproducibility
+set.seed(123)
+
+# Function to simulate survival times
+simulate_survival <- function(n, median_survival) {
+  lambda <- log(2) / median_survival
+  rexp(n, rate = lambda)
+}
+
+# Number of synthetic data points for each group
+n_pembrolizumab <- 1000
+n_chemotherapy <- 1000
+
+# Pembrolizumab group
+pembrolizumab_data <- data.frame(
+  Group = "Pembrolizumab",
+  Age = rnorm(n_pembrolizumab, mean = 67, sd = 10),
+  Male = rbinom(n_pembrolizumab, 1, 0.741),
+  Smoker = rbinom(n_pembrolizumab, 1, 0.613),
+  Primary_Tumor_Bladder_Urethra = rbinom(n_pembrolizumab, 1, 0.859),
+  Overall_Survival = simulate_survival(n_pembrolizumab, 10.3),
+  Progression_Free_Survival = simulate_survival(n_pembrolizumab, 2.1),
+  Adverse_Event_Discontinuation = rbinom(n_pembrolizumab, 1, 0.056)
+)
+
+# Chemotherapy group
+chemotherapy_data <- data.frame(
+  Group = "Chemotherapy",
+  Age = rnorm(n_chemotherapy, mean = 68, sd = 10),
+  Male = rbinom(n_chemotherapy, 1, 0.743),
+  Smoker = rbinom(n_chemotherapy, 1, 0.691),
+  Primary_Tumor_Bladder_Urethra = rbinom(n_chemotherapy, 1, 0.863),
+  Overall_Survival = simulate_survival(n_chemotherapy, 7.4),
+  Progression_Free_Survival = simulate_survival(n_chemotherapy, 3.3),
+  Adverse_Event_Discontinuation = rbinom(n_chemotherapy, 1, 0.11)
+)
+
+# Combine the two groups
+synthetic_data <- rbind(pembrolizumab_data, chemotherapy_data)
+
+# View summary of the synthetic data
+summary(synthetic_data)
+
+```
+
+Now create plot to look at overall survival vs group
+```{r}
+library(ggplot2)
+ggplot(synthetic_data, mapping=aes(x=Group, y=Overall_Survival)) + geom_point()
+```
+
+As expected, the overall survival is greater in pembrolizumab group than in chemotherapy group.
+
+Now a plot to look at progression free survival vs group
+```{r}
+ggplot(synthetic_data, mapping=aes(x=Group, y=Progression_Free_Survival)) + geom_point()
+```
+
+As expected, progression free survival is greater in chemotherapy group.
+
+Now fit a model to predict overall survival based on age, sex, smoking status, site of primary tumor, group, and adverse events
+
+```{r}
+survival_fit <- lm(
+  Overall_Survival ~ Group + Age + as.factor(Male) + 
+    as.factor(Smoker) + as.factor(Primary_Tumor_Bladder_Urethra) + 
+    as.factor(Adverse_Event_Discontinuation),
+  data = synthetic_data
+)
+
+summary(survival_fit)
+```
+
+We can see that overall survival depends on the treatment group and age, but not on other factors such as sex, smoking status, site of primary tumor, and adverse events.
+The R-squared is 0.02259, suggesting that there are other factors that may influence overall survival.
