@@ -1,0 +1,203 @@
+---
+title: "cdcdata-exercise"
+format: html
+editor: visual
+---
+
+This is the CDC dataset - Weekly Respiratory Virus Vaccination Data Children and Adults
+The dataset has 17 variables:
+Vaccine type, influenza season, Geographic level, Geographic Name, Demographic level, Demographic Name, Indicator Label, Indicator Category Label, Month and Week, Date of week ending, Weekly weighted estimate, Half-width of 90% CI, Half-width of 95% CI, Number of weighted respondents, and Number of unweighted respondents 
+The dataset collects weekly data regarding respiratory virus vaccination coverage in the non-institutionalized US population.
+The data can be found at: https://data.cdc.gov/Vaccinations/Weekly-Respiratory-Virus-Vaccination-Data-Children/5c6r-xi2t/about_data
+```{r}
+library(readr)
+library(here)
+immunization_cdcdata = read_csv(here("cdcdata-exercise", "Weekly_Respiratory_Virus_Vaccination_Data__Children_6_Months-17_Years_and_Adults_18_Years_and_Older__National_Immunization_Survey_20250203.csv"), show_col_types = FALSE)
+```
+
+Look at the data
+
+```{r}
+library(tidyverse)
+glimpse(immunization_cdcdata)
+summary(immunization_cdcdata)
+```
+
+We can see that the variable influenza_season has no information, and all the rows say "NA". Thus we can remove this variable.
+Similarly, we can see that this is national level data, and geographic_name and geographic_level are the same - "National".
+As such, we can remove geographic_name from the dataset.
+The suppression_flag variable is the same - 0 - for all, and thus does not provide any additional useful information and can thus be removed.
+The number of weighted individuals have 420 NAs. The dataset has 505 variables, of which a sizable amount are NA. Removing all the NAs would leave us with a very small dataset.
+The unweighted individuals could be used in the analysis instead, however this may give inaccurate results.
+The weekly estimate estimate of the weighted proportion giving the response is available and can be used. 
+The CDC website does provide a hard copy of the questionnaire used, however the sampling and weighting methods have not been elaborated on.
+
+```{r}
+immunization_cdcdata_filtered = immunization_cdcdata |>
+  select(-c(influenza_season, geographic_name, demographic_level, ci_half_width_90pct, ci_half_width_95pct, n_weighted, suppression_flag))
+```
+
+Look at the filtered data
+```{r}
+glimpse(immunization_cdcdata_filtered)
+summary(immunization_cdcdata_filtered)
+View(immunization_cdcdata_filtered)
+```
+
+We have the following variables:
+vaccine, geographic_level, demographic_name, indicator_label, indicator_category_label, month_week, week_ending, nd_weekly_estimate, n_unweighted, and data_source.
+
+The nd_weekly_estimate gives a weighted estimate of the proportion of respondents giving a particular response.
+
+The month_week variable can be recoded as month variable, to get a more big-picture look at the data. We can also remove the 2025 data to focus on 2024 trends.
+Additionally, focus on indicator_label for those that are not up to date.
+
+```{r}
+immunization_cdcdata_final <- immunization_cdcdata_filtered |>
+  mutate(month = str_extract(month_week, "^[A-Za-z]+")) |> filter(!str_starts(week_ending, "2025")) |>
+  filter(indicator_label == "4-level vaccination and intent") |>
+  select(-c(indicator_label, month_week, week_ending))
+View(immunization_cdcdata_final)
+```
+
+Wr can create subsets of this dataset to look at trends.
+Let us create a subset for adults and COVID vaccine. Let us focus on those who are not up to date on the vaccine.
+This is the final dataset we focus on.
+```{r}
+adultcovid_cdcdata = immunization_cdcdata_final |>
+  filter(vaccine=="COVID", demographic_name=="18+ years")
+View(adultcovid_cdcdata)
+```
+
+Let us look at the data summary
+```{r}
+summary(adultcovid_cdcdata)
+
+#Look at month distribution
+table(adultcovid_cdcdata$month)
+
+#Summary by month
+#September
+library(dplyr)
+
+# Filter data for September and then summarize by indicator_category_label
+september_summary <- adultcovid_cdcdata |>
+  filter(month == "September") |>
+  group_by(indicator_category_label) |>
+  summarise(
+       mean_value = mean(nd_weekly_estimate, na.rm = TRUE),
+    sd_value = sd(nd_weekly_estimate, na.rm = TRUE),
+    .groups = 'drop'  # Removes the grouping structure after summarization
+  )
+
+# View the summary for September
+september_summary
+
+```
+This gives us the percentage of individuals reporting the status for September.
+We do the same for October, November, and December.
+
+```{r}
+# Filter data for October and then summarize by indicator_category_label
+october_summary <- adultcovid_cdcdata |>
+  filter(month == "October") |>
+  group_by(indicator_category_label) |>
+  summarise(
+       mean_value = mean(nd_weekly_estimate, na.rm = TRUE),
+    sd_value = sd(nd_weekly_estimate, na.rm = TRUE),
+    .groups = 'drop'  # Removes the grouping structure after summarization
+  )
+
+# View the summary for October
+october_summary
+
+# Filter data for November and then summarize by indicator_category_label
+november_summary <- adultcovid_cdcdata |>
+  filter(month == "November") |>
+  group_by(indicator_category_label) |>
+  summarise(
+       mean_value = mean(nd_weekly_estimate, na.rm = TRUE),
+    sd_value = sd(nd_weekly_estimate, na.rm = TRUE),
+    .groups = 'drop'  # Removes the grouping structure after summarization
+  )
+
+# View the summary for September
+november_summary
+
+# Filter data for December and then summarize by indicator_category_label
+december_summary <- adultcovid_cdcdata |>
+  filter(month == "December") |>
+  group_by(indicator_category_label) |>
+  summarise(
+       mean_value = mean(nd_weekly_estimate, na.rm = TRUE),
+    sd_value = sd(nd_weekly_estimate, na.rm = TRUE),
+    .groups = 'drop'  # Removes the grouping structure after summarization
+  )
+
+# View the summary for September
+december_summary
+```
+We can also do the same to see the unweighted number.
+
+```{r}
+# Filter data for September and then summarize by indicator_category_label
+september_summary <- adultcovid_cdcdata |>
+  filter(month == "September") |>
+  group_by(indicator_category_label) |>
+  summarise(
+       mean_value = mean(n_unweighted, na.rm = TRUE),
+    sd_value = sd(nd_weekly_estimate, na.rm = TRUE),
+    .groups = 'drop'  # Removes the grouping structure after summarization
+  )
+
+# View the summary for September
+september_summary
+
+# Filter data for October and then summarize by indicator_category_label
+october_summary <- adultcovid_cdcdata |>
+  filter(month == "October") |>
+  group_by(indicator_category_label) |>
+  summarise(
+       mean_value = mean(n_unweighted, na.rm = TRUE),
+    sd_value = sd(nd_weekly_estimate, na.rm = TRUE),
+    .groups = 'drop'  # Removes the grouping structure after summarization
+  )
+
+# View the summary for October
+october_summary
+
+# Filter data for November and then summarize by indicator_category_label
+november_summary <- adultcovid_cdcdata |>
+  filter(month == "November") |>
+  group_by(indicator_category_label) |>
+  summarise(
+       mean_value = mean(n_unweighted, na.rm = TRUE),
+    sd_value = sd(nd_weekly_estimate, na.rm = TRUE),
+    .groups = 'drop'  # Removes the grouping structure after summarization
+  )
+
+# View the summary for November
+november_summary
+
+# Filter data for December and then summarize by indicator_category_label
+december_summary <- adultcovid_cdcdata |>
+  filter(month == "December") |>
+  group_by(indicator_category_label) |>
+  summarise(
+       mean_value = mean(n_unweighted, na.rm = TRUE),
+    sd_value = sd(nd_weekly_estimate, na.rm = TRUE),
+    .groups = 'drop'  # Removes the grouping structure after summarization
+  )
+
+# View the summary for December
+december_summary
+```
+
+
+Let us look at the adult vaccination trends by month.
+```{r}
+ggplot(adultcovid_cdcdata, mapping=aes(x=month, y=nd_weekly_estimate, color=indicator_category_label)) + geom_point()
+```
+We can see that approximately 40% and above individuals report that they will definitely not get a vaccine.
+Those that report that they will definitely get the COVID vaccine decreases from around 20% in September to around 10% in December.
+Those that received a vaccination increased from less than 10% in September to over 20% in December.

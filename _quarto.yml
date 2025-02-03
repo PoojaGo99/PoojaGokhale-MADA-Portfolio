@@ -16,6 +16,8 @@ website:
             file: coding-exercise/coding-exercise.qmd
           - text: "Synthetic Data Exercise"
             file: synthetic-data-exercise/synthetic-data.qmd
+          - text: "Data Analysis Exercise"
+            file: cdcdata-exercise/cdcdata-exercise.qmd
     right:
       - icon: github 
         href: https://github.com/PoojaGo99/PoojaGokhale-MADA-Portfolio     
