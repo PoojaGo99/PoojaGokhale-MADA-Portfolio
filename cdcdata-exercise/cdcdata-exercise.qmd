@@ -4,11 +4,8 @@ format: html
 editor: visual
 ---
 
-This is the CDC dataset - Weekly Respiratory Virus Vaccination Data Children and Adults
-The dataset has 17 variables:
-Vaccine type, influenza season, Geographic level, Geographic Name, Demographic level, Demographic Name, Indicator Label, Indicator Category Label, Month and Week, Date of week ending, Weekly weighted estimate, Half-width of 90% CI, Half-width of 95% CI, Number of weighted respondents, and Number of unweighted respondents 
-The dataset collects weekly data regarding respiratory virus vaccination coverage in the non-institutionalized US population.
-The data can be found at: https://data.cdc.gov/Vaccinations/Weekly-Respiratory-Virus-Vaccination-Data-Children/5c6r-xi2t/about_data
+This is the CDC dataset - Weekly Respiratory Virus Vaccination Data Children and Adults The dataset has 17 variables: Vaccine type, influenza season, Geographic level, Geographic Name, Demographic level, Demographic Name, Indicator Label, Indicator Category Label, Month and Week, Date of week ending, Weekly weighted estimate, Half-width of 90% CI, Half-width of 95% CI, Number of weighted respondents, and Number of unweighted respondents The dataset collects weekly data regarding respiratory virus vaccination coverage in the non-institutionalized US population. The data can be found at: https://data.cdc.gov/Vaccinations/Weekly-Respiratory-Virus-Vaccination-Data-Children/5c6r-xi2t/about_data
+
 ```{r}
 library(readr)
 library(here)
@@ -23,14 +20,7 @@ glimpse(immunization_cdcdata)
 summary(immunization_cdcdata)
 ```
 
-We can see that the variable influenza_season has no information, and all the rows say "NA". Thus we can remove this variable.
-Similarly, we can see that this is national level data, and geographic_name and geographic_level are the same - "National".
-As such, we can remove geographic_name from the dataset.
-The suppression_flag variable is the same - 0 - for all, and thus does not provide any additional useful information and can thus be removed.
-The number of weighted individuals have 420 NAs. The dataset has 505 variables, of which a sizable amount are NA. Removing all the NAs would leave us with a very small dataset.
-The unweighted individuals could be used in the analysis instead, however this may give inaccurate results.
-The weekly estimate estimate of the weighted proportion giving the response is available and can be used. 
-The CDC website does provide a hard copy of the questionnaire used, however the sampling and weighting methods have not been elaborated on.
+We can see that the variable influenza_season has no information, and all the rows say "NA". Thus we can remove this variable. Similarly, we can see that this is national level data, and geographic_name and geographic_level are the same - "National". As such, we can remove geographic_name from the dataset. The suppression_flag variable is the same - 0 - for all, and thus does not provide any additional useful information and can thus be removed. The number of weighted individuals have 420 NAs. The dataset has 505 variables, of which a sizable amount are NA. Removing all the NAs would leave us with a very small dataset. The unweighted individuals could be used in the analysis instead, however this may give inaccurate results. The weekly estimate estimate of the weighted proportion giving the response is available and can be used. The CDC website does provide a hard copy of the questionnaire used, however the sampling and weighting methods have not been elaborated on.
 
 ```{r}
 immunization_cdcdata_filtered = immunization_cdcdata |>
@@ -38,19 +28,18 @@ immunization_cdcdata_filtered = immunization_cdcdata |>
 ```
 
 Look at the filtered data
+
 ```{r}
 glimpse(immunization_cdcdata_filtered)
 summary(immunization_cdcdata_filtered)
 View(immunization_cdcdata_filtered)
 ```
 
-We have the following variables:
-vaccine, geographic_level, demographic_name, indicator_label, indicator_category_label, month_week, week_ending, nd_weekly_estimate, n_unweighted, and data_source.
+We have the following variables: vaccine, geographic_level, demographic_name, indicator_label, indicator_category_label, month_week, week_ending, nd_weekly_estimate, n_unweighted, and data_source.
 
 The nd_weekly_estimate gives a weighted estimate of the proportion of respondents giving a particular response.
 
-The month_week variable can be recoded as month variable, to get a more big-picture look at the data. We can also remove the 2025 data to focus on 2024 trends.
-Additionally, focus on indicator_label for those that are not up to date.
+The month_week variable can be recorded as month variable, to get a more big-picture look at the data. We can also remove the 2025 data to focus on 2024 trends. Additionally, focus on indicator_label for those that are not up to date.
 
 ```{r}
 immunization_cdcdata_final <- immunization_cdcdata_filtered |>
@@ -60,9 +49,8 @@ immunization_cdcdata_final <- immunization_cdcdata_filtered |>
 View(immunization_cdcdata_final)
 ```
 
-Wr can create subsets of this dataset to look at trends.
-Let us create a subset for adults and COVID vaccine. Let us focus on those who are not up to date on the vaccine.
-This is the final dataset we focus on.
+We can create subsets of this dataset to look at trends. Let us create a subset for adults and COVID vaccine. Let us focus on those who are not up to date on the vaccine. This is the final dataset we focus on.
+
 ```{r}
 adultcovid_cdcdata = immunization_cdcdata_final |>
   filter(vaccine=="COVID", demographic_name=="18+ years")
@@ -70,6 +58,7 @@ View(adultcovid_cdcdata)
 ```
 
 Let us look at the data summary
+
 ```{r}
 summary(adultcovid_cdcdata)
 
@@ -94,8 +83,8 @@ september_summary <- adultcovid_cdcdata |>
 september_summary
 
 ```
-This gives us the percentage of individuals reporting the status for September.
-We do the same for October, November, and December.
+
+This gives us the percentage of individuals reporting the status for September. We do the same for October, November, and December.
 
 ```{r}
 # Filter data for October and then summarize by indicator_category_label
@@ -137,6 +126,7 @@ december_summary <- adultcovid_cdcdata |>
 # View the summary for September
 december_summary
 ```
+
 We can also do the same to see the unweighted number.
 
 ```{r}
@@ -193,11 +183,195 @@ december_summary <- adultcovid_cdcdata |>
 december_summary
 ```
 
-
 Let us look at the adult vaccination trends by month.
+
 ```{r}
 ggplot(adultcovid_cdcdata, mapping=aes(x=month, y=nd_weekly_estimate, color=indicator_category_label)) + geom_point()
 ```
-We can see that approximately 40% and above individuals report that they will definitely not get a vaccine.
-Those that report that they will definitely get the COVID vaccine decreases from around 20% in September to around 10% in December.
-Those that received a vaccination increased from less than 10% in September to over 20% in December.
+
+We can see that approximately 40% and above individuals report that they will definitely not get a vaccine. Those that report that they will definitely get the COVID vaccine decreases from around 20% in September to around 10% in December. Those that received a vaccination increased from less than 10% in September to over 20% in December.\
+
+This part was contributed by **Doreen Kibuule Kalembe.**
+
+I used the AI tools to prompt it to write code that can generate an R script to create a synthetic COVID-19 dataset with at least 100 observations. The dataset should include columns for vaccine type, geographical level, demographic name, indicator category labels, month, weighted estimates, and unweighted responses. Looking at the final dataset used for annalysis, I went with the 100 observations though the final data set had only 68 observations
+
+```{r}
+
+set.seed(123)  # For reproducibility
+
+# Generate 100 observations
+data_size <- 100
+
+# Define possible values for categorical variables
+vaccine <- rep("COVID", data_size)
+geographical_level <- rep("National", data_size)
+demographic_name <- rep("18+ year olds", data_size)
+indicator_category_label <- sample(c("Definitely or probably will get a vaccine", 
+                                     "Definitely will get a vaccine", 
+                                     "Probably will get a vaccine", 
+                                     "Received vaccination"), 
+                                   data_size, replace = TRUE)
+month <- sample(c("August", "September", "October", "November", "December"), 
+                data_size, replace = TRUE)
+
+# Generate continuous variables
+nd_weekly_estimate <- runif(data_size, min = 9, max = 50)  # Weighted estimate
+unweighted_response <- sample(1000:300000, data_size, replace = TRUE)  # Unweighted response count
+
+# Create data frame
+covid_data <- data.frame(vaccine, geographical_level, demographic_name, 
+                         indicator_category_label, month, 
+                         nd_weekly_estimate, unweighted_response)
+
+# Display first few rows
+head(covid_data)
+
+# Save as CSV
+write.csv(covid_data, "synthetic_covid_data.csv", row.names = FALSE)
+
+```
+
+lets try to look at the monthly distributions of those who received the vaccine.
+
+```{r}
+library(readr)
+synthetic_covid_data<-read_csv("C:/Users/kkdor/Desktop/GitHub_Work/PoojaGokhale-MADA-Portfolio/cdcdata-exercise/synthetic_covid_data.csv")
+
+```
+
+```{r}
+summary(synthetic_covid_data)
+
+#Look at month distribution
+table(synthetic_covid_data$month)
+
+#Summary by month
+#September
+library(dplyr)
+
+# Filter data for September and then summarize by indicator_category_label
+september_summary <- synthetic_covid_data |>
+  filter(month == "September") |>
+  group_by(indicator_category_label) |>
+  summarise(
+       mean_value = mean(nd_weekly_estimate, na.rm = TRUE),
+    sd_value = sd(nd_weekly_estimate, na.rm = TRUE),
+    .groups = 'drop'  # Removes the grouping structure after summarization
+  )
+
+# View the summary for September
+september_summary
+```
+
+lets look at other months that is month of october november and december.
+
+```{r}
+# Filter data for October and then summarize by indicator_category_label
+october_summary <- synthetic_covid_data |>
+  filter(month == "October") |>
+  group_by(indicator_category_label) |>
+  summarise(
+       mean_value = mean(nd_weekly_estimate, na.rm = TRUE),
+    sd_value = sd(nd_weekly_estimate, na.rm = TRUE),
+    .groups = 'drop'  # Removes the grouping structure after summarization
+  )
+
+# View the summary for October
+october_summary
+
+# Filter data for November and then summarize by indicator_category_label
+november_summary <- synthetic_covid_data |>
+  filter(month == "November") |>
+  group_by(indicator_category_label) |>
+  summarise(
+       mean_value = mean(nd_weekly_estimate, na.rm = TRUE),
+    sd_value = sd(nd_weekly_estimate, na.rm = TRUE),
+    .groups = 'drop'  # Removes the grouping structure after summarization
+  )
+
+# View the summary for September
+november_summary
+
+# Filter data for December and then summarize by indicator_category_label
+december_summary <- synthetic_covid_data |>
+  filter(month == "December") |>
+  group_by(indicator_category_label) |>
+  summarise(
+       mean_value = mean(nd_weekly_estimate, na.rm = TRUE),
+    sd_value = sd(nd_weekly_estimate, na.rm = TRUE),
+    .groups = 'drop'  # Removes the grouping structure after summarization
+  )
+
+# View the summary for September
+december_summary
+
+```
+
+lets try applying the same summary statistics but to the un weighted.
+
+```{r}
+# Filter data for September and then summarize by indicator_category_label
+september_summary <- synthetic_covid_data |>
+  filter(month == "September") |>
+  group_by(indicator_category_label) |>
+  summarise(
+       mean_value = mean(unweighted_response, na.rm = TRUE),
+    sd_value = sd(nd_weekly_estimate, na.rm = TRUE),
+    .groups = 'drop'  # Removes the grouping structure after summarization
+  )
+
+# View the summary for September
+september_summary
+
+# Filter data for October and then summarize by indicator_category_label
+october_summary <- synthetic_covid_data |>
+  filter(month == "October") |>
+  group_by(indicator_category_label) |>
+  summarise(
+       mean_value = mean(unweighted_response, na.rm = TRUE),
+    sd_value = sd(nd_weekly_estimate, na.rm = TRUE),
+    .groups = 'drop'  # Removes the grouping structure after summarization
+  )
+
+# View the summary for October
+october_summary
+
+# Filter data for November and then summarize by indicator_category_label
+november_summary <- synthetic_covid_data |>
+  filter(month == "November") |>
+  group_by(indicator_category_label) |>
+  summarise(
+       mean_value = mean(unweighted_response, na.rm = TRUE),
+    sd_value = sd(nd_weekly_estimate, na.rm = TRUE),
+    .groups = 'drop'  # Removes the grouping structure after summarization
+  )
+
+# View the summary for November
+november_summary
+
+# Filter data for December and then summarize by indicator_category_label
+december_summary <- synthetic_covid_data |>
+  filter(month == "December") |>
+  group_by(indicator_category_label) |>
+  summarise(
+       mean_value = mean(unweighted_response, na.rm = TRUE),
+    sd_value = sd(nd_weekly_estimate, na.rm = TRUE),
+    .groups = 'drop'  # Removes the grouping structure after summarization
+  )
+
+# View the summary for December
+december_summary
+```
+
+looking at the outcomes, it looks like the synthetic data could work as a mirror of the original data set.
+
+lets make a visualisation of the data to see how the vaccination trends look like.
+
+```{r}
+
+ggplot(synthetic_covid_data, mapping=aes(x=month, y=nd_weekly_estimate, color=indicator_category_label)) + geom_point()
+```
+
+Looking at this synthetic data and the summary statistics I have made with it, it's close to the original data. We still see that individuals who won't get a vaccine have a higher percentage than others.
+
+I strongly believe this synthetic data can help us mirror what might happen for the real data.
