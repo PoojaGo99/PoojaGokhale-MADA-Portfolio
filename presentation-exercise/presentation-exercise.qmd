@@ -1,0 +1,205 @@
+---
+title: "presentation-exercise"
+editor: visual
+---
+
+The data I chose was from 538 where they assessed how Americans approved of Biden's response to COVID-19.
+
+First, let's load the data.
+
+```{r}
+library(here)
+library(tidyverse)
+library(ggplot2)
+library(plotly)
+plot_data = read.csv(here("presentation-exercise", "covid_approval_polls.csv"))
+glimpse(plot_data)
+str(plot_data)
+```
+
+I used the following AI prompt: I want to create an interactive graph of Americans' approval or disapproval of Biden's response to COVID-19. First, I want to filter the data for the adult population and the subject "Biden" and then see trends over time. The approval and disapproval variables are given as percentages.
+
+This is the code I received:
+
+```{r}
+poll_data2 <- plot_data[plot_data$population == "a" & plot_data$subject == "Biden", ]
+
+poll_data2$start_date <- as.Date(poll_data2$start_date)
+poll_data2$end_date <- as.Date(poll_data2$end_date)
+
+# Calculate the midpoint (average) of start_date and end_date
+poll_data2$poll_date <- as.Date((as.numeric(poll_data2$start_date) + as.numeric(poll_data2$end_date)) / 2, origin = "1970-01-01")
+
+# Aggregate data by date (average approval and disapproval for each date)
+poll_data_avg <- poll_data2 %>%
+  group_by(poll_date) %>%
+  summarise(approve = mean(approve, na.rm = TRUE),
+            disapprove = mean(disapprove, na.rm = TRUE))
+
+# Apply Lowess smoothing for approval and disapproval
+poll_data_avg$fitted_approve <- stats::lowess(poll_data_avg$poll_date, poll_data_avg$approve, f = 0.05)$y
+poll_data_avg$fitted_disapprove <- stats::lowess(poll_data_avg$poll_date, poll_data_avg$disapprove, f = 0.05)$y
+
+# Create hover text for approval and disapproval percentages
+poll_data_avg <- poll_data_avg %>%
+  mutate(hover_text_approve = paste0(round(approve, 1), "%"),
+         hover_text_disapprove = paste0(round(disapprove, 1), "%"))
+
+# Identify outliers for approval and disapproval (e.g., residuals > 0.5 SD to highlight)
+poll_data_avg$residuals_approve <- poll_data_avg$approve - mean(poll_data_avg$approve, na.rm = TRUE)
+poll_data_avg$residuals_disapprove <- poll_data_avg$disapprove - mean(poll_data_avg$disapprove, na.rm = TRUE)
+
+outliers_approve <- poll_data_avg %>% 
+  filter(abs(residuals_approve) > 0.5 * sd(residuals_approve))
+
+outliers_disapprove <- poll_data_avg %>% 
+  filter(abs(residuals_disapprove) > 0.5 * sd(residuals_disapprove))
+
+# Add hover text for outliers as well
+outliers_approve <- outliers_approve %>%
+  mutate(hover_text_approve = paste0(round(approve, 1), "%"))
+
+outliers_disapprove <- outliers_disapprove %>%
+  mutate(hover_text_disapprove = paste0(round(disapprove, 1), "%"))
+
+# Plot
+p <- ggplot() +
+  # Smoothed approval line
+  geom_line(data = poll_data_avg, aes(x = poll_date, y = fitted_approve), color = "orangered", size = 1) +
+  # Smoothed disapproval line
+  geom_line(data = poll_data_avg, aes(x = poll_date, y = fitted_disapprove), color = "violet", size = 1) +
+  # Approval outliers with hover text
+  geom_point(data = outliers_approve, aes(x = poll_date, y = approve, text = hover_text_approve), 
+             color = "orangered", size = 1, alpha = 0.7) +
+  # Disapproval outliers with hover text
+  geom_point(data = outliers_disapprove, aes(x = poll_date, y = disapprove, text = hover_text_disapprove), 
+             color = "violet", size = 1, alpha = 0.7) +
+  labs(
+    title = "Do Americans approve of Biden's response to the coronavirus crisis?",
+    subtitle = "A calculation of the share of all Americans who approve of the president’s handling of the coronavirus outbreak"
+  ) +
+  theme_minimal() +
+  scale_x_date(date_labels = "%m/%d/%y", date_breaks = "3 months") +
+  scale_y_continuous(limits = c(20, 80), breaks = seq(20, 80, by = 20)) +
+  theme(
+    axis.title.x = element_blank(), # Remove x-axis label
+    axis.title.y = element_blank(), # Remove y-axis label
+    axis.text.x = element_text(size = 12), # Optional: Adjust x-axis text size
+    axis.text.y = element_text(size = 12)  # Optional: Adjust y-axis text size
+  )
+
+
+# Convert to interactive plot with hover text
+interactive_plot <- ggplotly(p, tooltip = "text")
+
+# Display the interactive plot
+interactive_plot
+```
+
+It took multiple iterations for me to get the final code. Most of the problems were with the labelling, and how smooth the curve should be.
+
+![This is the original image](538_covid_poll.png)
+
+```{r}
+# Load necessary libraries
+library(dplyr)
+library(DT)
+library(sparkline)
+library(htmltools)
+
+# Check column names in plot_data
+colnames(plot_data)
+
+# Convert approve and disapprove columns to numeric (if they aren't already)
+plot_data <- plot_data %>%
+  mutate(
+    approve = as.numeric(approve),
+    disapprove = as.numeric(disapprove)
+  )
+
+# Group and summarize data by population, party, and subject
+grouped_data <- plot_data %>%
+  group_by(population, party, subject) %>%
+  summarise(
+    mean_approve = mean(approve, na.rm = TRUE),
+    mean_disapprove = mean(disapprove, na.rm = TRUE),
+    .groups = 'drop'
+  )
+
+# Create sparklines for approval trends over time
+sparkline_data <- plot_data %>%
+  group_by(population, party, subject) %>%
+  summarise(
+    sparkline = spk_chr(approve, type = "line"),  # Create sparklines for approve column
+    .groups = 'drop'
+  )
+
+# Merge sparkline data with grouped data
+grouped_data <- grouped_data %>%
+  left_join(sparkline_data, by = c("population", "party", "subject"))
+
+# Add approval status column
+grouped_data <- grouped_data %>%
+  mutate(
+    approval_status = ifelse(mean_approve > 50, "Over half approve", "Less than half approve"),
+    approval_status = paste0("<b>", approval_status, "</b>")  # Bold text
+  )
+
+# Rename columns for better readability
+grouped_data <- grouped_data %>%
+  rename(
+    "Population" = population,
+    "Party" = party,
+    "Subject" = subject,
+    "Mean Approval (%)" = mean_approve,
+    "Mean Disapproval (%)" = mean_disapprove,
+    "Approval Trend" = sparkline,
+    "Approval Status" = approval_status
+  )
+
+# Create interactive table
+interactive_table <- datatable(
+  grouped_data,
+  escape = FALSE,  # Allow HTML rendering for sparklines and bold text
+  options = list(
+    pageLength = 10,
+    lengthMenu = c(5, 10, 15),
+    searching = TRUE,
+    ordering = TRUE,
+    dom = 'Bfrtip',  # Add buttons for exporting
+    buttons = c('copy', 'csv', 'excel', 'pdf')  # Optional: Add export buttons
+  ),
+  rownames = FALSE,
+  caption = htmltools::tags$caption(
+    style = "caption-side: top; text-align: center; color: black; font-size: 16px;",
+    "Poll Approval Ratings by Population, Party, and Subject"
+  ),
+  extensions = "Buttons"
+) %>%
+  formatStyle(
+    "Party",  # Column to apply styling
+    target = "row",  # Apply to entire row
+    backgroundColor = styleEqual(
+      c("R", "D"),  # Values to match (R = Republican, D = Democrat)
+      c("pink", "lightblue")  # Corresponding colors
+    )
+  ) %>%
+  formatStyle(
+    "Approval Status",  # Column with approval status
+    fontWeight = "bold"  # Make text bold
+  ) %>%
+  spk_add_deps()  # Add sparkline dependencies
+
+# Add a footnote
+interactive_table <- interactive_table %>%
+  htmltools::tags$div(
+    style = "font-size: 12px; color: gray; margin-top: 10px;",
+    "Footnote: Data represents mean approval and disapproval percentages grouped by population, party, and subject."
+  )
+
+# Display the interactive table
+interactive_table
+
+```
+We can see from the table that regardless of voter status (adults, registered voters, likely voters), over 50% of Republicans approve of Trump's COVID-19 response, and less than 50% approve of Biden.
+Similary, over 50% of Democrats approve of Biden while less than 50% approve of Trump.
