@@ -235,7 +235,8 @@ lets try to look at the monthly distributions of those who received the vaccine.
 
 ```{r}
 library(readr)
-synthetic_covid_data<-read_csv("C:/Users/kkdor/Desktop/GitHub_Work/PoojaGokhale-MADA-Portfolio/cdcdata-exercise/synthetic_covid_data.csv")
+library(here)
+synthetic_covid_data<-read_csv("synthetic_covid_data.csv")
 
 ```
 

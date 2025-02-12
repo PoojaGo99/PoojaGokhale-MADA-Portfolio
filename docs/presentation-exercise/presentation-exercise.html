@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>presentation-exercise – Pooja Gokhale Data Analysis Portfolio</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-d4be639c637f3db3c684c66cefad7e0c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link href="../site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+
+<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<script src="../site_libs/plotly-binding-4.10.4/plotly.js"></script>
+
+<script src="../site_libs/typedarray-0.1/typedarray.min.js"></script>
+
+<script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+
+<link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+
+<script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+
+<link href="../site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+
+<script src="../site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+<link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+
+<script src="../site_libs/datatables-binding-0.33/datatables.js"></script>
+
+<link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+
+<link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
+
+<script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+
+<script src="../site_libs/jszip-1.13.6/jszip.min.js"></script>
+
+<script src="../site_libs/pdfmake-1.13.6/pdfmake.js"></script>
+
+<script src="../site_libs/pdfmake-1.13.6/vfs_fonts.js"></script>
+
+<link href="../site_libs/dt-ext-buttons-1.13.6/css/buttons.dataTables.min.css" rel="stylesheet">
+
+<script src="../site_libs/dt-ext-buttons-1.13.6/js/dataTables.buttons.min.js"></script>
+
+<script src="../site_libs/dt-ext-buttons-1.13.6/js/buttons.html5.min.js"></script>
+
+<script src="../site_libs/dt-ext-buttons-1.13.6/js/buttons.colVis.min.js"></script>
+
+<script src="../site_libs/dt-ext-buttons-1.13.6/js/buttons.print.min.js"></script>
+
+<link href="../site_libs/jquery-sparkline-2.1.2/jquery.sparkline.css" rel="stylesheet">
+
+<script src="../site_libs/jquery-sparkline-2.1.2/jquery.sparkline.js"></script>
+
+<script src="../site_libs/sparkline-binding-2.0/sparkline.js"></script>
+
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Pooja Gokhale Data Analysis Portfolio</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../aboutme.html"> 
+<span class="menu-text">About Me</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Projects</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects">    
+        <li>
+    <a class="dropdown-item" href="../starter-analysis-exercise/products/report/starter-analysis-report.html">
+ <span class="dropdown-text">Starter Analysis Exercise</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../coding-exercise/coding-exercise.html">
+ <span class="dropdown-text">R Coding Exercise</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../synthetic-data-exercise/synthetic-data.html">
+ <span class="dropdown-text">Synthetic Data Exercise</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../cdcdata-exercise/cdcdata-exercise.html">
+ <span class="dropdown-text">Data Analysis Exercise</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../presentation-exercise/presentation-exercise.html">
+ <span class="dropdown-text">Presentation Exercise</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/PoojaGo99/PoojaGokhale-MADA-Portfolio"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">presentation-exercise</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>The data I chose was from 538 where they assessed how Americans approved of Biden’s response to COVID-19.</p>
+<p>First, let’s load the data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>here() starts at C:/Pooja/Pooja/Spring 2025/EPID-BIOS-8060E-MADA/PoojaGokhale-MADA-Portfolio</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.0     ✔ tibble    3.2.1
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'plotly'
+
+The following object is masked from 'package:ggplot2':
+
+    last_plot
+
+The following object is masked from 'package:stats':
+
+    filter
+
+The following object is masked from 'package:graphics':
+
+    layout</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>plot_data <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="fu">here</span>(<span class="st">"presentation-exercise"</span>, <span class="st">"covid_approval_polls.csv"</span>))</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(plot_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 3,867
+Columns: 13
+$ start_date  &lt;chr&gt; "2020-02-02", "2020-02-02", "2020-02-02", "2020-02-02", "2…
+$ end_date    &lt;chr&gt; "2020-02-04", "2020-02-04", "2020-02-04", "2020-02-04", "2…
+$ pollster    &lt;chr&gt; "YouGov", "YouGov", "YouGov", "YouGov", "Morning Consult",…
+$ sponsor     &lt;chr&gt; "Economist", "Economist", "Economist", "Economist", "", ""…
+$ sample_size &lt;dbl&gt; 1500, 376, 523, 599, 2200, 684, 817, 700, 1996, 700, 788, …
+$ population  &lt;chr&gt; "a", "a", "a", "a", "a", "a", "a", "a", "rv", "rv", "rv", …
+$ party       &lt;chr&gt; "all", "R", "D", "I", "all", "R", "D", "I", "all", "R", "D…
+$ subject     &lt;chr&gt; "Trump", "Trump", "Trump", "Trump", "Trump", "Trump", "Tru…
+$ tracking    &lt;chr&gt; "FALSE", "FALSE", "FALSE", "FALSE", "FALSE", "FALSE", "FAL…
+$ text        &lt;chr&gt; "Do you approve or disapprove of Donald Trump’s handling o…
+$ approve     &lt;dbl&gt; 42, 75, 21, 39, 57, 88, 37, 50, 39, 71, 15, 34, 39, 74, 19…
+$ disapprove  &lt;dbl&gt; 29, 6, 51, 25, 22, 4, 37, 22, 35, 8, 60, 33, 28, 7, 50, 25…
+$ url         &lt;chr&gt; "https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/doc…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(plot_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   3867 obs. of  13 variables:
+ $ start_date : chr  "2020-02-02" "2020-02-02" "2020-02-02" "2020-02-02" ...
+ $ end_date   : chr  "2020-02-04" "2020-02-04" "2020-02-04" "2020-02-04" ...
+ $ pollster   : chr  "YouGov" "YouGov" "YouGov" "YouGov" ...
+ $ sponsor    : chr  "Economist" "Economist" "Economist" "Economist" ...
+ $ sample_size: num  1500 376 523 599 2200 ...
+ $ population : chr  "a" "a" "a" "a" ...
+ $ party      : chr  "all" "R" "D" "I" ...
+ $ subject    : chr  "Trump" "Trump" "Trump" "Trump" ...
+ $ tracking   : chr  "FALSE" "FALSE" "FALSE" "FALSE" ...
+ $ text       : chr  "Do you approve or disapprove of Donald Trump’s handling of the coronavirus outbreak?" "Do you approve or disapprove of Donald Trump’s handling of the coronavirus outbreak?" "Do you approve or disapprove of Donald Trump’s handling of the coronavirus outbreak?" "Do you approve or disapprove of Donald Trump’s handling of the coronavirus outbreak?" ...
+ $ approve    : num  42 75 21 39 57 88 37 50 39 71 ...
+ $ disapprove : num  29 6 51 25 22 4 37 22 35 8 ...
+ $ url        : chr  "https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/73jqd6u5mv/econTabReport.pdf" "https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/73jqd6u5mv/econTabReport.pdf" "https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/73jqd6u5mv/econTabReport.pdf" "https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/73jqd6u5mv/econTabReport.pdf" ...</code></pre>
+</div>
+</div>
+<p>I used the following AI prompt: I want to create an interactive graph of Americans’ approval or disapproval of Biden’s response to COVID-19. First, I want to filter the data for the adult population and the subject “Biden” and then see trends over time. The approval and disapproval variables are given as percentages.</p>
+<p>This is the code I received:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>poll_data2 <span class="ot">&lt;-</span> plot_data[plot_data<span class="sc">$</span>population <span class="sc">==</span> <span class="st">"a"</span> <span class="sc">&amp;</span> plot_data<span class="sc">$</span>subject <span class="sc">==</span> <span class="st">"Biden"</span>, ]</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>poll_data2<span class="sc">$</span>start_date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(poll_data2<span class="sc">$</span>start_date)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>poll_data2<span class="sc">$</span>end_date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(poll_data2<span class="sc">$</span>end_date)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the midpoint (average) of start_date and end_date</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>poll_data2<span class="sc">$</span>poll_date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>((<span class="fu">as.numeric</span>(poll_data2<span class="sc">$</span>start_date) <span class="sc">+</span> <span class="fu">as.numeric</span>(poll_data2<span class="sc">$</span>end_date)) <span class="sc">/</span> <span class="dv">2</span>, <span class="at">origin =</span> <span class="st">"1970-01-01"</span>)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Aggregate data by date (average approval and disapproval for each date)</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>poll_data_avg <span class="ot">&lt;-</span> poll_data2 <span class="sc">%&gt;%</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(poll_date) <span class="sc">%&gt;%</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">approve =</span> <span class="fu">mean</span>(approve, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">disapprove =</span> <span class="fu">mean</span>(disapprove, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply Lowess smoothing for approval and disapproval</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>poll_data_avg<span class="sc">$</span>fitted_approve <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">lowess</span>(poll_data_avg<span class="sc">$</span>poll_date, poll_data_avg<span class="sc">$</span>approve, <span class="at">f =</span> <span class="fl">0.05</span>)<span class="sc">$</span>y</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>poll_data_avg<span class="sc">$</span>fitted_disapprove <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">lowess</span>(poll_data_avg<span class="sc">$</span>poll_date, poll_data_avg<span class="sc">$</span>disapprove, <span class="at">f =</span> <span class="fl">0.05</span>)<span class="sc">$</span>y</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Create hover text for approval and disapproval percentages</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>poll_data_avg <span class="ot">&lt;-</span> poll_data_avg <span class="sc">%&gt;%</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">hover_text_approve =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(approve, <span class="dv">1</span>), <span class="st">"%"</span>),</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>         <span class="at">hover_text_disapprove =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(disapprove, <span class="dv">1</span>), <span class="st">"%"</span>))</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify outliers for approval and disapproval (e.g., residuals &gt; 0.5 SD to highlight)</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>poll_data_avg<span class="sc">$</span>residuals_approve <span class="ot">&lt;-</span> poll_data_avg<span class="sc">$</span>approve <span class="sc">-</span> <span class="fu">mean</span>(poll_data_avg<span class="sc">$</span>approve, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>poll_data_avg<span class="sc">$</span>residuals_disapprove <span class="ot">&lt;-</span> poll_data_avg<span class="sc">$</span>disapprove <span class="sc">-</span> <span class="fu">mean</span>(poll_data_avg<span class="sc">$</span>disapprove, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>outliers_approve <span class="ot">&lt;-</span> poll_data_avg <span class="sc">%&gt;%</span> </span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">abs</span>(residuals_approve) <span class="sc">&gt;</span> <span class="fl">0.5</span> <span class="sc">*</span> <span class="fu">sd</span>(residuals_approve))</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>outliers_disapprove <span class="ot">&lt;-</span> poll_data_avg <span class="sc">%&gt;%</span> </span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">abs</span>(residuals_disapprove) <span class="sc">&gt;</span> <span class="fl">0.5</span> <span class="sc">*</span> <span class="fu">sd</span>(residuals_disapprove))</span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Add hover text for outliers as well</span></span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>outliers_approve <span class="ot">&lt;-</span> outliers_approve <span class="sc">%&gt;%</span></span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">hover_text_approve =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(approve, <span class="dv">1</span>), <span class="st">"%"</span>))</span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>outliers_disapprove <span class="ot">&lt;-</span> outliers_disapprove <span class="sc">%&gt;%</span></span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">hover_text_disapprove =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(disapprove, <span class="dv">1</span>), <span class="st">"%"</span>))</span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Smoothed approval line</span></span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> poll_data_avg, <span class="fu">aes</span>(<span class="at">x =</span> poll_date, <span class="at">y =</span> fitted_approve), <span class="at">color =</span> <span class="st">"orangered"</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Smoothed disapproval line</span></span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> poll_data_avg, <span class="fu">aes</span>(<span class="at">x =</span> poll_date, <span class="at">y =</span> fitted_disapprove), <span class="at">color =</span> <span class="st">"violet"</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Approval outliers with hover text</span></span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> outliers_approve, <span class="fu">aes</span>(<span class="at">x =</span> poll_date, <span class="at">y =</span> approve, <span class="at">text =</span> hover_text_approve), </span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"orangered"</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Disapproval outliers with hover text</span></span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> outliers_disapprove, <span class="fu">aes</span>(<span class="at">x =</span> poll_date, <span class="at">y =</span> disapprove, <span class="at">text =</span> hover_text_disapprove), </span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"violet"</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Do Americans approve of Biden's response to the coronavirus crisis?"</span>,</span>
+<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"A calculation of the share of all Americans who approve of the president’s handling of the coronavirus outbreak"</span></span>
+<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_labels =</span> <span class="st">"%m/%d/%y"</span>, <span class="at">date_breaks =</span> <span class="st">"3 months"</span>) <span class="sc">+</span></span>
+<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">80</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">20</span>, <span class="dv">80</span>, <span class="at">by =</span> <span class="dv">20</span>)) <span class="sc">+</span></span>
+<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(), <span class="co"># Remove x-axis label</span></span>
+<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(), <span class="co"># Remove y-axis label</span></span>
+<span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>), <span class="co"># Optional: Adjust x-axis text size</span></span>
+<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>)  <span class="co"># Optional: Adjust y-axis text size</span></span>
+<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in geom_point(data = outliers_approve, aes(x = poll_date, y = approve,
+: Ignoring unknown aesthetics: text</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in geom_point(data = outliers_disapprove, aes(x = poll_date, y =
+disapprove, : Ignoring unknown aesthetics: text</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to interactive plot with hover text</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>interactive_plot <span class="ot">&lt;-</span> <span class="fu">ggplotly</span>(p, <span class="at">tooltip =</span> <span class="st">"text"</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the interactive plot</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>interactive_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-2dd4233abecd9b7b3b19" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-2dd4233abecd9b7b3b19">{"x":{"data":[{"x":[18649.5,18652,18655,18657,18659,18660,18663.5,18664,18665.5,18668.5,18670.5,18671.5,18672.5,18676.5,18677,18678.5,18685,18686.5,18688,18691.5,18692,18692.5,18693.5,18697.5,18701,18704.5,18707.5,18709.5,18710,18712.5,18713,18714.5,18721.5,18723,18724,18726.5,18727,18728.5,18731,18735.5,18736.5,18740.5,18743,18745,18748,18749.5,18754,18756.5,18759,18762,18763.5,18765.5,18768,18770.5,18772,18777.5,18783.5,18785,18790,18792,18796.5,18799,18801,18803.5,18805.5,18806.5,18809,18812.5,18819.5,18822,18823.5,18825,18826.5,18831.5,18833.5,18834,18837,18838,18839.5,18840,18840.5,18841,18847.5,18848.5,18853,18854.5,18855,18856,18857.5,18859.5,18861.5,18866.5,18867.5,18868.5,18869.5,18870,18874.5,18875.5,18881,18881.5,18883,18885.5,18887,18888.5,18889.5,18892.5,18895,18896,18897,18900.5,18902.5,18904,18910.5,18915,18915.5,18917.5,18918.5,18923,18924.5,18925,18929.5,18931.5,18937,18938.5,18939.5,18944,18946,18949,18949.5,18952.5,18959.5,18963.5,18964,18965.5,18966.5,18971,18971.5,18972,18974,18976,18979.5,18981,18995,18997,18998.5,19000.5,19001.5,19007.5,19008,19008.5,19010.5,19014,19015.5,19020.5,19022.5,19026,19026.5,19028,19032,19035,19036.5,19041,19041.5,19043.5,19045,19048.5,19050.5,19052.5,19054,19057.5,19060.5,19062.5,19063,19064.5,19068.5,19069.5,19070,19071,19071.5,19078.5,19084,19085.5,19089,19090.5,19092.5,19098,19099.5,19101,19102.5,19104.5,19105,19108,19108.5,19111.5,19113.5,19116.5,19117,19119.5,19121,19126,19128,19130.5,19132.5,19134.5,19141.5,19146.5,19147.5,19148.5,19154.5,19155.5,19161.5,19162.5,19168,19168.5,19180.5,19182.5,19189,19190.5,19203,19207,19208,19209.5,19212,19216,19218.5,19224,19225.5,19231,19233,19239,19241,19241.5,19243,19245.5,19254,19258,19260,19273,19280,19294,19299.5,19307,19313.5,19316.5],"y":[61.803145036549253,60.236026264853649,58.355483738818918,57.309363978273026,56.263244217727141,55.740184337454195,55.43722644777538,55.393946749249835,55.2641076536732,55.449041511182529,55.572330749522081,55.633975368691864,55.74483969890818,56.188297019773451,56.243729184881609,56.148643577702146,56.190420861717925,56.329283527172613,56.468146192627316,56.792159078688265,56.888150434612982,56.984141790537706,57.176124502387154,57.944055349784932,58.249726848535751,58.380711356768074,58.492983792395776,58.179813226757588,58.101520585348027,57.710057378300291,57.631764736890744,57.345607387021275,56.770249116030946,57.247850924432441,57.566252130033433,58.36225514403592,58.521455746836423,59.023436986980265,59.860072387220008,60.002071731662767,60.033627141538943,59.457223440708873,59.096971127690082,58.606224672427132,57.870104989532706,57.502045148085493,56.8861400123808,56.980723764996291,57.075307517611783,56.942730635068926,56.876442193797502,56.788057605435597,56.136375657197604,55.484693708959597,55.093684540016795,54.200424343241522,54.490150174905565,54.779196344015169,55.742683574380536,56.498111129511784,58.197823128557097,57.997520420452986,57.837278253969693,57.224790832523496,56.734800895366547,56.489805926788065,55.908766245454565,55.095310691587663,55.275719079665443,55.552664867040932,55.718832339466225,55.884999811891518,55.728560772356687,55.207097307240602,54.409512399172272,54.210116172155182,53.013738810052686,52.614946356018521,52.056780939292963,51.870725800384449,51.684670661475934,51.498615522567412,50.013242695060086,50.113158609579429,50.56278022491653,50.717454922543425,50.769013155085716,50.872129620170313,51.0268043177972,51.233037247966394,51.079011020397125,49.858795526598058,49.614752427838248,49.300891877263552,48.987031326688857,48.830101051401513,48.233637944643732,48.101090587586441,48.044144992656527,48.038968120390173,48.619315167766445,49.58656024672689,50.166907294103169,50.419945491912621,50.588637623785587,51.094714019404506,50.192125895985356,49.831090646617696,49.470055397250029,47.814229062970064,46.868042586238658,46.707980370618301,46.439995915626014,47.15591888097714,47.235465877127268,47.862236409790555,48.175621676122198,49.080129432248711,49.381632017624213,49.482132879416049,48.899010017603004,48.639844301241659,47.376443477623035,47.064847335272646,46.857116573705724,46.188592656074704,45.891470914905362,45.537339607691592,45.478317723155961,45.124186415942191,45.872589092642151,46.690677619827291,46.792938685725431,47.099721883419861,47.230726855921858,47.820249232180878,47.885751718431877,47.951254204682876,47.513303768867033,47.07535333305119,45.905731860518735,45.404465515147685,42.31526889113529,42.194624097128695,42.104140501623746,41.983495707617152,41.923173310613855,41.892532824255881,41.889979450392715,41.979046898391424,42.335316690386264,42.958788826377244,42.996069674724893,43.12033916921704,43.214679191160151,43.379774229560589,43.403359235046366,43.296610290414975,43.011946438064605,43.26209884166834,43.387175043470208,43.549073000660314,43.567061662570332,44.041810270165143,44.397871725861251,45.362000462680911,45.912931169434998,46.777608290404338,47.426116131131344,48.220305030471195,48.9010383727625,48.928587357988704,48.935474604295258,48.956136343214915,47.948618401895232,47.696738916565316,47.570799173900362,47.318919688570439,47.202506321684893,46.488686533942129,46.548436062518917,46.673608266809438,46.965676743487322,47.09084894777785,47.078720183215538,47.354870820618281,47.469123331718649,47.583375842819038,47.697628353919413,47.849965035386582,47.929100913878599,48.403916184830678,48.483052063322695,47.665131131899926,47.119850510951409,46.684740843440366,46.612222565521861,46.249631175929323,45.982872605469709,45.093677370604311,44.840656149510465,44.524379623143155,44.271358402049309,44.791542460035664,45.524646102016241,46.00849417493157,46.105263789514638,46.23790726241991,46.769180756978827,46.817372533443077,46.970641214610865,46.90795154120481,46.563158337471492,46.515358798344089,45.795006488906573,45.639139357490606,45.006511976385035,44.878338366255853,44.43533937819231,44.482278091795244,44.49401277019598,44.511614787797079,44.679040477657949,44.94692158143534,45.177126067655486,45.774699610495709,45.768185110499914,46.58508247242937,47.146654198482544,48.883751422004231,49.314674940595864,49.422405820243775,49.745598459187505,50.284252857427042,50.876826816368769,50.911200431473034,50.928387239025163,49.712530565043991,48.778868988549803,46.391822938705097,45.371936813645263,43.952232663592511,42.696833627362146,42.106335569021141],"text":"","type":"scatter","mode":"lines","line":{"width":3.7795275590551185,"color":"rgba(255,69,0,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[18649.5,18652,18655,18657,18659,18660,18663.5,18664,18665.5,18668.5,18670.5,18671.5,18672.5,18676.5,18677,18678.5,18685,18686.5,18688,18691.5,18692,18692.5,18693.5,18697.5,18701,18704.5,18707.5,18709.5,18710,18712.5,18713,18714.5,18721.5,18723,18724,18726.5,18727,18728.5,18731,18735.5,18736.5,18740.5,18743,18745,18748,18749.5,18754,18756.5,18759,18762,18763.5,18765.5,18768,18770.5,18772,18777.5,18783.5,18785,18790,18792,18796.5,18799,18801,18803.5,18805.5,18806.5,18809,18812.5,18819.5,18822,18823.5,18825,18826.5,18831.5,18833.5,18834,18837,18838,18839.5,18840,18840.5,18841,18847.5,18848.5,18853,18854.5,18855,18856,18857.5,18859.5,18861.5,18866.5,18867.5,18868.5,18869.5,18870,18874.5,18875.5,18881,18881.5,18883,18885.5,18887,18888.5,18889.5,18892.5,18895,18896,18897,18900.5,18902.5,18904,18910.5,18915,18915.5,18917.5,18918.5,18923,18924.5,18925,18929.5,18931.5,18937,18938.5,18939.5,18944,18946,18949,18949.5,18952.5,18959.5,18963.5,18964,18965.5,18966.5,18971,18971.5,18972,18974,18976,18979.5,18981,18995,18997,18998.5,19000.5,19001.5,19007.5,19008,19008.5,19010.5,19014,19015.5,19020.5,19022.5,19026,19026.5,19028,19032,19035,19036.5,19041,19041.5,19043.5,19045,19048.5,19050.5,19052.5,19054,19057.5,19060.5,19062.5,19063,19064.5,19068.5,19069.5,19070,19071,19071.5,19078.5,19084,19085.5,19089,19090.5,19092.5,19098,19099.5,19101,19102.5,19104.5,19105,19108,19108.5,19111.5,19113.5,19116.5,19117,19119.5,19121,19126,19128,19130.5,19132.5,19134.5,19141.5,19146.5,19147.5,19148.5,19154.5,19155.5,19161.5,19162.5,19168,19168.5,19180.5,19182.5,19189,19190.5,19203,19207,19208,19209.5,19212,19216,19218.5,19224,19225.5,19231,19233,19239,19241,19241.5,19243,19245.5,19254,19258,19260,19273,19280,19294,19299.5,19307,19313.5,19316.5],"y":[27.84987735036697,29.065661350404064,30.524602150448583,31.468205002979456,32.411807855510325,32.883609281775762,33.599519703557235,33.701792620954592,34.00861137314665,33.875008520045455,33.78593995131132,33.741405666944253,33.761880119142639,33.843777927936209,33.854015154035402,34.064288340153304,35.012064203118094,35.141102912089096,35.270141621060098,35.571231941992437,35.532525972351316,35.493820002710194,35.416408063427951,35.106760306298959,34.710985071286593,34.193594017195565,33.750115970831821,33.856260397740073,33.882796504467137,34.015477038102446,34.042013144829511,34.3017689077246,35.524993364891635,35.35251131573596,35.237523282965505,34.950053201039381,34.892559184654154,34.599928877479854,34.112211698856015,33.898417180571627,33.850907287619542,34.584381396474811,35.042802714509349,35.565893211880379,36.350528957936916,36.742846830965185,37.319412891305085,37.445604946747267,37.571797002189449,37.135185717084724,36.916880074532365,36.625805884462551,36.578966267699371,36.532126650936192,36.504022880878281,36.324627996167813,35.911001552944661,35.765721437428617,35.281454385708479,35.009140205949478,34.396433301491726,34.285975447419972,34.197609164162564,34.196158906989709,34.194998701251428,34.194418598382292,34.413799359143951,34.720932424210268,35.167590436179218,35.453719444001578,35.625396848694997,35.797074253388416,36.261381314409071,37.809071517811269,38.62882281764611,38.83376064260483,40.063387592357088,40.473263242274513,41.322716956723667,41.605868194873381,41.889019433023094,42.172170671172815,45.184646872170553,45.150081105122261,44.994535153404961,44.759303826080199,44.680893383638619,44.524072498755451,44.288841171430697,43.975199401664355,44.327352030219657,44.272929165588394,44.262044592662143,44.386986374049314,44.511928155436479,44.574399046130061,45.157731097233565,45.287360441923234,46.141450868464752,46.219095452695797,45.912257336773592,45.400860476903247,45.094022360981043,45.027143914056182,44.982558282772942,44.848801388923214,45.430949286417302,45.663808445414944,45.896667604412578,46.785740549983103,47.293782233166262,47.167870338812641,46.956920670998628,46.360298938884853,46.294007635316653,46.12097974453944,46.034465799150837,46.118194692091535,46.146104323071761,46.15540753339851,46.381360258165017,46.481783691394583,47.143874411444401,47.342050460010384,47.474167825721047,47.848023595928332,48.01418171602046,47.63237760156197,47.568743582485567,47.186939468027077,45.300989931713332,44.906279877604327,44.856941120840702,44.70892485054982,44.968221888276538,46.135058558046779,46.264707076910135,46.394355595773497,46.924720850973571,47.455086106173653,48.129556002240591,48.418614529126422,50.466731143068699,50.872895590615983,51.177518926276434,51.583683373823717,51.786765597597359,53.218848932615394,53.338189210533564,53.258157631115232,52.938031313441911,52.377810257513609,52.026054027124687,50.853533259161594,50.837149297622204,50.808477364928279,50.804381374543432,50.996084658211295,51.507293414658932,51.510228727414756,51.511696383792668,50.808780699595296,50.730678956906701,49.946438800714134,49.358258683569716,47.962280370032744,47.164578476583046,46.647413270443124,46.259539365838179,45.785097760817926,45.378433527943422,45.591106473583807,45.644274709993908,45.803779419224199,46.292355256881542,46.41449921629588,46.475571196003052,46.597715155417383,46.626657799809266,46.610379695228431,45.705044446863752,45.612442990515568,45.396372925703155,45.303771469354977,45.333751535363618,45.423330451026459,45.589403797769414,45.755477144512369,45.921550491255324,46.142981620245934,46.11808533814748,45.968707645556748,45.943811363458288,46.228990040510581,46.419109158545439,46.587796289499892,46.615910811325634,46.756483420454352,46.852113783801677,47.170881661626098,47.195151931097662,47.22548976793712,47.249760037408691,46.872014710350477,46.170845001662641,45.802513001208936,45.7288466011182,45.643270858977488,45.560767366169728,45.603445167382347,45.910358828744343,45.871669018237725,45.658875060451322,45.609623619819018,44.885241211596799,44.843751687155446,44.532553587340871,44.40677414845797,44.495422544000824,44.567610836490658,44.585657909613118,44.612728519296809,44.686186729100953,44.803719864787574,44.902376729918387,45.244804342455055,45.269148189602113,44.964818022261895,44.864151810272347,44.694168411293504,44.711313700097307,44.715600022298261,44.728458988901117,44.749890599905875,45.006642881201934,45.106548165987078,45.156500808379647,44.95231966144533,44.857919712036107,44.651494272653288,44.520069432982105,44.347801831899098,44.208372132293405,44.145986757263657],"text":"","type":"scatter","mode":"lines","line":{"width":3.7795275590551185,"color":"rgba(238,130,238,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[18649.5,18655,18657,18660,18663.5,18668.5,18670.5,18676.5,18677,18685,18691.5,18692.5,18697.5,18704.5,18709.5,18710,18712.5,18713,18723,18724,18726.5,18727,18731,18735.5,18736.5,18740.5,18743,18745,18748,18754,18762,18763.5,18765.5,18768,18783.5,18790,18792,18796.5,18799,18801,18803.5,18806.5,18812.5,18822,18823.5,18825,18826.5,18831.5,18847.5,18855,18857.5,18861.5,18866.5,18868.5,18874.5,18875.5,18883,18887,18888.5,18889.5,18892.5,18896,18897,18900.5,18904,18910.5,18915,18917.5,18925,18929.5,18931.5,18938.5,18944,18946,18949,18949.5,18952.5,18959.5,18963.5,18965.5,18966.5,18972,18974,18981,18995,18997,18998.5,19000.5,19001.5,19007.5,19008,19008.5,19010.5,19014,19015.5,19022.5,19026,19026.5,19028,19032,19035,19036.5,19041,19041.5,19043.5,19045,19048.5,19050.5,19054,19057.5,19062.5,19064.5,19069.5,19071.5,19078.5,19085.5,19089,19090.5,19098,19099.5,19101,19108.5,19113.5,19116.5,19117,19119.5,19121,19128,19130.5,19132.5,19134.5,19141.5,19146.5,19148.5,19154.5,19155.5,19162.5,19168.5,19180.5,19190.5,19203,19207,19208,19209.5,19212,19216,19218.5,19224,19225.5,19233,19239,19243,19254,19294,19299.5,19307,19313.5,19316.5],"y":[69,56,61.5,56.403333333333336,67,65.5,57.75,59.75,59,68,60.555555555555557,65,67,61.75,65,54.75,72,63.375,57.933333333333337,55.75,62,63.25,63.600000000000001,56.833333333333336,63,64.5,54.5,57.25,68.25,66,59.873333333333335,54.25,64,63.25,44.75,65.75,58,58.5,55.25,58.75,64,61.5,54.75,56.25,55.799999999999997,65,55,63,47,54.5,57,46.25,64,45,46.5,43,46.75,46.75,57,46.875,55.25,57,43,45,45.75,44.5,45.5,43.25,46,56,44.25,44,46.75,44.200000000000003,46.75,45.75,44.25,43.5,44.5,57,41.25,44.5,44,42.5,42,44,41,38.75,42.75,45,44,39,40,42.25,42.5,42.125,37,44.5,43.25,46.25,44.25,38.75,46.25,43.5,41.25,44,44.25,46.25,43,46.5,56,44,45.75,45.5,44.5,43.75,46,58,46.75,44.5,43.5,45.25,45.75,46.75,42,59,42.75,44.5,40.25,46,43.5,43,56,42.5,46.75,43.25,43.75,45.75,42,41,46,42,38,56,42.5,56,45,44.75,43.25,43,45.75,45,55,47,45,46.25,44.75,37.75],"text":["69%","56%","61.5%","56.4%","67%","65.5%","57.8%","59.8%","59%","68%","60.6%","65%","67%","61.8%","65%","54.8%","72%","63.4%","57.9%","55.8%","62%","63.2%","63.6%","56.8%","63%","64.5%","54.5%","57.2%","68.2%","66%","59.9%","54.2%","64%","63.2%","44.8%","65.8%","58%","58.5%","55.2%","58.8%","64%","61.5%","54.8%","56.2%","55.8%","65%","55%","63%","47%","54.5%","57%","46.2%","64%","45%","46.5%","43%","46.8%","46.8%","57%","46.9%","55.2%","57%","43%","45%","45.8%","44.5%","45.5%","43.2%","46%","56%","44.2%","44%","46.8%","44.2%","46.8%","45.8%","44.2%","43.5%","44.5%","57%","41.2%","44.5%","44%","42.5%","42%","44%","41%","38.8%","42.8%","45%","44%","39%","40%","42.2%","42.5%","42.1%","37%","44.5%","43.2%","46.2%","44.2%","38.8%","46.2%","43.5%","41.2%","44%","44.2%","46.2%","43%","46.5%","56%","44%","45.8%","45.5%","44.5%","43.8%","46%","58%","46.8%","44.5%","43.5%","45.2%","45.8%","46.8%","42%","59%","42.8%","44.5%","40.2%","46%","43.5%","43%","56%","42.5%","46.8%","43.2%","43.8%","45.8%","42%","41%","46%","42%","38%","56%","42.5%","56%","45%","44.8%","43.2%","43%","45.8%","45%","55%","47%","45%","46.2%","44.8%","37.8%"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(255,69,0,1)","opacity":0.69999999999999996,"size":3.7795275590551185,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(255,69,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[18649.5,18652,18655,18657,18659,18660,18663.5,18664,18665.5,18668.5,18670.5,18671.5,18672.5,18676.5,18677,18678.5,18685,18686.5,18691.5,18692,18692.5,18697.5,18701,18704.5,18707.5,18709.5,18710,18712.5,18713,18714.5,18721.5,18723,18724,18726.5,18727,18728.5,18731,18735.5,18736.5,18740.5,18743,18745,18748,18754,18759,18762,18763.5,18765.5,18768,18770.5,18772,18777.5,18783.5,18785,18790,18792,18796.5,18799,18801,18803.5,18806.5,18809,18812.5,18822,18823.5,18825,18826.5,18831.5,18834,18837,18840,18848.5,18853,18857.5,18866.5,18867.5,18874.5,18875.5,18881,18881.5,18885.5,18887,18889.5,18897,18900.5,18902.5,18904,18910.5,18917.5,18924.5,18925,18931.5,18938.5,18939.5,18944,18946,18949,18949.5,18952.5,18966.5,18971,18972,18974,18976,18979.5,18981,18995,18997,19000.5,19001.5,19007.5,19008,19008.5,19010.5,19014,19015.5,19020.5,19022.5,19026.5,19028,19032,19035,19036.5,19041,19041.5,19043.5,19045,19048.5,19050.5,19054,19057.5,19060.5,19064.5,19069.5,19070,19071,19071.5,19078.5,19084,19085.5,19089,19098,19099.5,19101,19105,19108.5,19111.5,19113.5,19116.5,19117,19119.5,19121,19126,19130.5,19132.5,19134.5,19141.5,19154.5,19155.5,19162.5,19168,19180.5,19203,19207,19212,19218.5,19224,19233,19243,19245.5,19258,19273,19299.5,19313.5,19316.5],"y":[29,27.25,21,29.75,34.25,36.780000000000001,32,36,35,32.25,33,34.75,34.75,30.75,33,37,30.75,36.25,33.888888888888886,36.5,35,33.25,35.75,33.25,37.5,28,33.25,28,32.125,36,37.5,38.343333333333334,35.25,28,31.25,38,30.399999999999999,35.666666666666664,32.5,33,36.25,34.75,29.5,29,38,36.700000000000003,37.25,32,32,38.25,36.75,37,47.75,37.5,33.25,33.75,35.75,35.5,34,31.25,32,24,34.5,34.5,33.100000000000001,34.25,37.625,36,38,28,38.5,49.25,47.5,38,35,46.200000000000003,33,47.5,31,46.375,46,46.25,36.625,48.75,32,48.125,48,48.25,48.5,47,46.25,49.5,46.5,48.375,48.75,49.799999999999997,46.75,49,48.75,50.5,47.25,46.75,48.25,46,47.5,49.75,49.5,50,56.25,50.5,54,53,53.5,56,52.5,52.625,49,49.625,50.5,50.25,52.75,52.75,52.25,50.25,51.5,50.5,50,49.25,45.5,36,45.5,47,46.5,49.25,48.75,46,46,46.75,46.625,46.5,33,52,46.5,49.25,48,46,48,45.75,46.5,35,35,47.5,47.25,52.75,48,47,46.75,47.5,47.25,45.75,48.25,35,45.75,37,46.25,45.5,46.25,46.75,34,46,46.5,46,45.5,46.75,38.25],"text":["29%","27.2%","21%","29.8%","34.2%","36.8%","32%","36%","35%","32.2%","33%","34.8%","34.8%","30.8%","33%","37%","30.8%","36.2%","33.9%","36.5%","35%","33.2%","35.8%","33.2%","37.5%","28%","33.2%","28%","32.1%","36%","37.5%","38.3%","35.2%","28%","31.2%","38%","30.4%","35.7%","32.5%","33%","36.2%","34.8%","29.5%","29%","38%","36.7%","37.2%","32%","32%","38.2%","36.8%","37%","47.8%","37.5%","33.2%","33.8%","35.8%","35.5%","34%","31.2%","32%","24%","34.5%","34.5%","33.1%","34.2%","37.6%","36%","38%","28%","38.5%","49.2%","47.5%","38%","35%","46.2%","33%","47.5%","31%","46.4%","46%","46.2%","36.6%","48.8%","32%","48.1%","48%","48.2%","48.5%","47%","46.2%","49.5%","46.5%","48.4%","48.8%","49.8%","46.8%","49%","48.8%","50.5%","47.2%","46.8%","48.2%","46%","47.5%","49.8%","49.5%","50%","56.2%","50.5%","54%","53%","53.5%","56%","52.5%","52.6%","49%","49.6%","50.5%","50.2%","52.8%","52.8%","52.2%","50.2%","51.5%","50.5%","50%","49.2%","45.5%","36%","45.5%","47%","46.5%","49.2%","48.8%","46%","46%","46.8%","46.6%","46.5%","33%","52%","46.5%","49.2%","48%","46%","48%","45.8%","46.5%","35%","35%","47.5%","47.2%","52.8%","48%","47%","46.8%","47.5%","47.2%","45.8%","48.2%","35%","45.8%","37%","46.2%","45.5%","46.2%","46.8%","34%","46%","46.5%","46%","45.5%","46.8%","38.2%"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(238,130,238,1)","opacity":0.69999999999999996,"size":3.7795275590551185,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(238,130,238,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":43.762557077625573,"r":7.3059360730593621,"b":29.821502698215028,"l":26.899128268991284},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"Do Americans approve of Biden's response to the coronavirus crisis?","font":{"color":"rgba(0,0,0,1)","family":"","size":17.534246575342465},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[18616.150000000001,19349.849999999999],"tickmode":"array","ticktext":["03/01/21","06/01/21","09/01/21","12/01/21","03/01/22","06/01/22","09/01/22","12/01/22"],"tickvals":[18687,18779,18871,18962,19052,19144,19236,19327],"categoryorder":"array","categoryarray":["03/01/21","06/01/21","09/01/21","12/01/21","03/01/22","06/01/22","09/01/22","12/01/22"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":15.940224159402243},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"","font":{"color":null,"family":null,"size":0}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[17,83],"tickmode":"array","ticktext":["20","40","60","80"],"tickvals":[20,40,60,80],"categoryorder":"array","categoryarray":["20","40","60","80"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":15.940224159402243},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"","font":{"color":null,"family":null,"size":0}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"610417131ccc":{"x":{},"y":{},"type":"scatter"},"6104667853a0":{"x":{},"y":{}},"61045d967b98":{"x":{},"y":{},"text":{}},"61041d517696":{"x":{},"y":{},"text":{}}},"cur_data":"610417131ccc","visdat":{"610417131ccc":["function (y) ","x"],"6104667853a0":["function (y) ","x"],"61045d967b98":["function (y) ","x"],"61041d517696":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>It took multiple iterations for me to get the final code. Most of the problems were with the labelling, and how smooth the curve should be.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="538_covid_poll.png" class="img-fluid figure-img"></p>
+<figcaption>This is the original image</figcaption>
+</figure>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load necessary libraries</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sparkline)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(htmltools)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Check column names in plot_data</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(plot_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "start_date"  "end_date"    "pollster"    "sponsor"     "sample_size"
+ [6] "population"  "party"       "subject"     "tracking"    "text"       
+[11] "approve"     "disapprove"  "url"        </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert approve and disapprove columns to numeric (if they aren't already)</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>plot_data <span class="ot">&lt;-</span> plot_data <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">approve =</span> <span class="fu">as.numeric</span>(approve),</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">disapprove =</span> <span class="fu">as.numeric</span>(disapprove)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Group and summarize data by population, party, and subject</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>grouped_data <span class="ot">&lt;-</span> plot_data <span class="sc">%&gt;%</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(population, party, subject) <span class="sc">%&gt;%</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_approve =</span> <span class="fu">mean</span>(approve, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_disapprove =</span> <span class="fu">mean</span>(disapprove, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">'drop'</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create sparklines for approval trends over time</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>sparkline_data <span class="ot">&lt;-</span> plot_data <span class="sc">%&gt;%</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(population, party, subject) <span class="sc">%&gt;%</span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">sparkline =</span> <span class="fu">spk_chr</span>(approve, <span class="at">type =</span> <span class="st">"line"</span>),  <span class="co"># Create sparklines for approve column</span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">'drop'</span></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge sparkline data with grouped data</span></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>grouped_data <span class="ot">&lt;-</span> grouped_data <span class="sc">%&gt;%</span></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(sparkline_data, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"population"</span>, <span class="st">"party"</span>, <span class="st">"subject"</span>))</span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Add approval status column</span></span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>grouped_data <span class="ot">&lt;-</span> grouped_data <span class="sc">%&gt;%</span></span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">approval_status =</span> <span class="fu">ifelse</span>(mean_approve <span class="sc">&gt;</span> <span class="dv">50</span>, <span class="st">"Over half approve"</span>, <span class="st">"Less than half approve"</span>),</span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">approval_status =</span> <span class="fu">paste0</span>(<span class="st">"&lt;b&gt;"</span>, approval_status, <span class="st">"&lt;/b&gt;"</span>)  <span class="co"># Bold text</span></span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename columns for better readability</span></span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a>grouped_data <span class="ot">&lt;-</span> grouped_data <span class="sc">%&gt;%</span></span>
+<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb19-39"><a href="#cb19-39" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Population"</span> <span class="ot">=</span> population,</span>
+<span id="cb19-40"><a href="#cb19-40" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Party"</span> <span class="ot">=</span> party,</span>
+<span id="cb19-41"><a href="#cb19-41" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Subject"</span> <span class="ot">=</span> subject,</span>
+<span id="cb19-42"><a href="#cb19-42" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Mean Approval (%)"</span> <span class="ot">=</span> mean_approve,</span>
+<span id="cb19-43"><a href="#cb19-43" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Mean Disapproval (%)"</span> <span class="ot">=</span> mean_disapprove,</span>
+<span id="cb19-44"><a href="#cb19-44" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Approval Trend"</span> <span class="ot">=</span> sparkline,</span>
+<span id="cb19-45"><a href="#cb19-45" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Approval Status"</span> <span class="ot">=</span> approval_status</span>
+<span id="cb19-46"><a href="#cb19-46" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb19-47"><a href="#cb19-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-48"><a href="#cb19-48" aria-hidden="true" tabindex="-1"></a><span class="co"># Create interactive table</span></span>
+<span id="cb19-49"><a href="#cb19-49" aria-hidden="true" tabindex="-1"></a>interactive_table <span class="ot">&lt;-</span> <span class="fu">datatable</span>(</span>
+<span id="cb19-50"><a href="#cb19-50" aria-hidden="true" tabindex="-1"></a>  grouped_data,</span>
+<span id="cb19-51"><a href="#cb19-51" aria-hidden="true" tabindex="-1"></a>  <span class="at">escape =</span> <span class="cn">FALSE</span>,  <span class="co"># Allow HTML rendering for sparklines and bold text</span></span>
+<span id="cb19-52"><a href="#cb19-52" aria-hidden="true" tabindex="-1"></a>  <span class="at">options =</span> <span class="fu">list</span>(</span>
+<span id="cb19-53"><a href="#cb19-53" aria-hidden="true" tabindex="-1"></a>    <span class="at">pageLength =</span> <span class="dv">10</span>,</span>
+<span id="cb19-54"><a href="#cb19-54" aria-hidden="true" tabindex="-1"></a>    <span class="at">lengthMenu =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>),</span>
+<span id="cb19-55"><a href="#cb19-55" aria-hidden="true" tabindex="-1"></a>    <span class="at">searching =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb19-56"><a href="#cb19-56" aria-hidden="true" tabindex="-1"></a>    <span class="at">ordering =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb19-57"><a href="#cb19-57" aria-hidden="true" tabindex="-1"></a>    <span class="at">dom =</span> <span class="st">'Bfrtip'</span>,  <span class="co"># Add buttons for exporting</span></span>
+<span id="cb19-58"><a href="#cb19-58" aria-hidden="true" tabindex="-1"></a>    <span class="at">buttons =</span> <span class="fu">c</span>(<span class="st">'copy'</span>, <span class="st">'csv'</span>, <span class="st">'excel'</span>, <span class="st">'pdf'</span>)  <span class="co"># Optional: Add export buttons</span></span>
+<span id="cb19-59"><a href="#cb19-59" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb19-60"><a href="#cb19-60" aria-hidden="true" tabindex="-1"></a>  <span class="at">rownames =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb19-61"><a href="#cb19-61" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> htmltools<span class="sc">::</span>tags<span class="sc">$</span><span class="fu">caption</span>(</span>
+<span id="cb19-62"><a href="#cb19-62" aria-hidden="true" tabindex="-1"></a>    <span class="at">style =</span> <span class="st">"caption-side: top; text-align: center; color: black; font-size: 16px;"</span>,</span>
+<span id="cb19-63"><a href="#cb19-63" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Poll Approval Ratings by Population, Party, and Subject"</span></span>
+<span id="cb19-64"><a href="#cb19-64" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb19-65"><a href="#cb19-65" aria-hidden="true" tabindex="-1"></a>  <span class="at">extensions =</span> <span class="st">"Buttons"</span></span>
+<span id="cb19-66"><a href="#cb19-66" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-67"><a href="#cb19-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">formatStyle</span>(</span>
+<span id="cb19-68"><a href="#cb19-68" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Party"</span>,  <span class="co"># Column to apply styling</span></span>
+<span id="cb19-69"><a href="#cb19-69" aria-hidden="true" tabindex="-1"></a>    <span class="at">target =</span> <span class="st">"row"</span>,  <span class="co"># Apply to entire row</span></span>
+<span id="cb19-70"><a href="#cb19-70" aria-hidden="true" tabindex="-1"></a>    <span class="at">backgroundColor =</span> <span class="fu">styleEqual</span>(</span>
+<span id="cb19-71"><a href="#cb19-71" aria-hidden="true" tabindex="-1"></a>      <span class="fu">c</span>(<span class="st">"R"</span>, <span class="st">"D"</span>),  <span class="co"># Values to match (R = Republican, D = Democrat)</span></span>
+<span id="cb19-72"><a href="#cb19-72" aria-hidden="true" tabindex="-1"></a>      <span class="fu">c</span>(<span class="st">"pink"</span>, <span class="st">"lightblue"</span>)  <span class="co"># Corresponding colors</span></span>
+<span id="cb19-73"><a href="#cb19-73" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb19-74"><a href="#cb19-74" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb19-75"><a href="#cb19-75" aria-hidden="true" tabindex="-1"></a>  <span class="fu">formatStyle</span>(</span>
+<span id="cb19-76"><a href="#cb19-76" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Approval Status"</span>,  <span class="co"># Column with approval status</span></span>
+<span id="cb19-77"><a href="#cb19-77" aria-hidden="true" tabindex="-1"></a>    <span class="at">fontWeight =</span> <span class="st">"bold"</span>  <span class="co"># Make text bold</span></span>
+<span id="cb19-78"><a href="#cb19-78" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb19-79"><a href="#cb19-79" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spk_add_deps</span>()  <span class="co"># Add sparkline dependencies</span></span>
+<span id="cb19-80"><a href="#cb19-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-81"><a href="#cb19-81" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a footnote</span></span>
+<span id="cb19-82"><a href="#cb19-82" aria-hidden="true" tabindex="-1"></a>interactive_table <span class="ot">&lt;-</span> interactive_table <span class="sc">%&gt;%</span></span>
+<span id="cb19-83"><a href="#cb19-83" aria-hidden="true" tabindex="-1"></a>  htmltools<span class="sc">::</span>tags<span class="sc">$</span><span class="fu">div</span>(</span>
+<span id="cb19-84"><a href="#cb19-84" aria-hidden="true" tabindex="-1"></a>    <span class="at">style =</span> <span class="st">"font-size: 12px; color: gray; margin-top: 10px;"</span>,</span>
+<span id="cb19-85"><a href="#cb19-85" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Footnote: Data represents mean approval and disapproval percentages grouped by population, party, and subject."</span></span>
+<span id="cb19-86"><a href="#cb19-86" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb19-87"><a href="#cb19-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-88"><a href="#cb19-88" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the interactive table</span></span>
+<span id="cb19-89"><a href="#cb19-89" aria-hidden="true" tabindex="-1"></a>interactive_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div style="font-size: 12px; color: gray; margin-top: 10px;">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-92e238ff012e3fd6ecdd" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-92e238ff012e3fd6ecdd">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"caption":"<caption style=\"caption-side: top; text-align: center; color: black; font-size: 16px;\">Poll Approval Ratings by Population, Party, and Subject<\/caption>","data":[["a","a","a","a","a","a","a","a","lv","lv","lv","lv","lv","lv","lv","lv","rv","rv","rv","rv","rv","rv","rv","rv","v"],["D","D","I","I","R","R","all","all","D","D","I","I","R","R","all","all","D","D","I","I","R","R","all","all","all"],["Biden","Trump","Biden","Trump","Biden","Trump","Biden","Trump","Biden","Trump","Biden","Trump","Biden","Trump","Biden","Trump","Biden","Trump","Biden","Trump","Biden","Trump","Biden","Trump","Biden"],[84.92317535545024,12.84557184750733,44.7621359223301,36.39018987341772,19.37625592417062,81.9416129032258,51.18700374531835,41.74997590361446,84.3,11.05307692307692,48.35,39.32307692307693,21.1125,85.22769230769231,51.52352941176471,42.77172413793104,84.71166666666667,12.4093567251462,46.27296296296296,36.75030303030303,22.70882716049383,82.04795321637427,53.34572164948454,42.87038834951456,60],[10.61962085308057,83.61444776119403,45.31067961165049,53.59808306709265,74.5609952606635,15.05579104477612,40.4765543071161,52.99301204819277,12.63125,87.94692307692307,42.99375,58.21538461538461,74.19374999999999,13.69538461538462,43.61764705882353,56.09189655172414,11.07845679012346,84.89825581395348,42.63444444444445,56.0078313253012,72.03808641975309,15.61046511627907,40.25046391752577,53.50194174757281,21],["<span id=\"htmlwidget-c0a8a890b209d2acbc3b\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-c0a8a890b209d2acbc3b\">{\"x\":{\"values\":[83,84,93,88,89.22,88,89,95,86,91,95,98,87,92,97,85,90.45999999999999,87,96,91,82,95,89,96,89,88,97,87,81,90,90.65000000000001,88,95,89,90,86,92,97,86,86,96,81,82,88,91.45,86,89,87,84,85,87,95,89,91,95,92,91,87,93,95,91,87,85,90,96,88,85,85,92,88.01000000000001,84,87,83,86,84,86,86,86,84,87,82,84,89,81,77,79,92,92,85,92,92,81,82,86,86,81,90,87,81,85,82,88,80,91,84,86,84,81,84,94,84,90,83,88,83,85,91,80,84,80,83,81,88,81,81,73,82,76,82,79,76,81,76,82,78,75,84,74,81,83,86,77,80,78,90,78,80,92,81,87,81,82,81,79,77,87,79,81,86,80,81,79,79,87,91,81,84,88,81,79,78,86,83,80,73,75,78,77,90,77,80,76,92,81,79,85,81,87,73,81,75,79,83,77,78,88,88,81,79,79,86,91,80,87,84,80,79,82,80,81,73],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-414346fd77ceaf97772d\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-414346fd77ceaf97772d\">{\"x\":{\"values\":[21,37,19,11,14,29,18,23,11,15,10,16,16,12,18,16,14,10,16,20,26,22,21,28,30,24,27,19,25,27,32,22,24,18,21,34,17,22,22,17,14,22,22,21,18,24,8,24,22,25,20,18,9,21,20,14,16,18,20,11,20,15,10,22,18,28,17,6,16,19.65,18,7,18,19,19,15,11,10,19,14.76,20,14,18.7,17,17,15,17,11,18.1,18,11.03,16,10,20.6,19,13,21,12,9,18.8,11,5,15,14,10.19,15,8,16.8,18,8,14,19,18.1,15,13.5,20,12,19.6,16,15,8,18.2,16,12.12,16,8,7,13,19.6,14,11,12,18.3,14,12.02,19,14,16.8,13,14,8,11,13,17.4,12,17,5,9,4,6,14.6,9,10,18,16.1,15,14.08,13,16,16.5,13,13,15.8,7,13,6,9,11,15,17.95,13,14,11,10.8,12,8,8,12,16,9,8,8,11,12.49,13,7,7,8,11,9,11,14,4,7,5,9,11,4,5,12,11.05,12,12,7,7,13,15.4,10,9.800000000000001,8.609999999999999,11,11,7,7,6,7,12,8,13,12,12,8,5,9,6,8,9,11.93,3,11,9,2,9,8,11,15,12,12,7,6,12,7,10,11,15,11,11,20,6,8,3,7,12,3,9,9.949999999999999,12,10,7,10,10,5,11,15,12,5,7,11,11,6,10,6.64,15,10,10,7,3,10,11,7,12,7,11,8,7,14,13,8,6,8,1,13.77,13,9,6,12,10,6,3,11.67,14,5,6,4,14,7,6,15,8,12,7,12,13,2,7,15,10,15,11,8,14,6,8,14.84,14,13,2,10,14,12,14,12,8,11,9,12.09,7,4,18,1,11],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-19aa19ee98dd4f140915\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-19aa19ee98dd4f140915\">{\"x\":{\"values\":[39,46,59,46,40,44,61,44,51,66,60,48,60,61,50,43,56,60,49,67,49,63,52,54,68,54,45,48,55,64,46,61,47,63,65,52,58,59,44,49,51,52,65,50,52,50,46,57,42,60,61,49,57,46,63,56,49,45,55,72,57,46,42,47,54,49,46,40,44,41,48,47,53,45,37,47,38,49,47,34,37,53,44,38,55,62,41,36,40,50,35,59,42,42,40,36,38,37,48,39,36,42,37,44,39,37,51,42,41,37,34,45,35,50,38,37,43,46,35,33,37,35,29,33,34,29,34,33,41,37,36,39,32,45,38,40,33,37,41,49,39,41,47,40,51,45,48,40,41,42,46,39,35,36,36,37,41,39,42,52,38,50,48,40,39,34,48,47,36,35,40,35,39,44,34,38,40,44,32,41,38,40,46,33,40,27,32,33,38,34,58,49,33,40,56,46,45,40,55,48,39,39,35,39,35,23],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-10f8c377545d9cda3c58\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-10f8c377545d9cda3c58\">{\"x\":{\"values\":[39,50,33,36,34,49,38,41,34,23,37,38,36,42,35,39,38,46,34,40,53,41,46,56,53,48,60,48,42,40,50,54,43,42,59,49,49,47,40,41,48,51,55,42,43,47,47,49,34,42,52,45,50,44,45,45,41,42,43,32,52,43,51,42,45,46,42,43,32,42,42,42,41,43,32,43,39,34,52,43,36,45,37,44,50,44.7,40,32,39,40.2,41,35,40,40,38,36.7,40,39,38,32,37,39.5,47,42,35,37,41.8,42,32,42,40.9,38,46,40,37.5,36,28,41,35,39,36.8,36,48,38,36.6,44,29,41,39.5,34,35,34,33,43,34.9,34,34,42,41,38,39,30,38,31,32,34.8,40,28,33,38.9,32,36,43.2,39,27,40,38,35,29,27,36,41,34.8,47,35,37,31,26,30,32,39,35,24,26,31,32,39,39,30,25,39,31,36,30,35,30,35,34,22,44,31,30,38,34,35,24.5,25,39,30,31,32,33,31,35,32,22,32,33,27,34,34,37,32,27,35,35,37,35,30,34,33,23,28,34,35,36,29,36,37,27,42,38,35,33,34,34,28,35,37,25,39,32,30,34,33,23,34,31,33,29,35,32,36,28,41,34,32,32,36,29,28,33,34,39,33,28,27,28,35,34,35,27,32,33,27,27,32,29,24,35,30,27,31,33,30,34,26,31,22,23,33,32,26,34,25,36,40,24,31,34,25,30,37,37,24,33,28,32,37,28,36,36,35,32,31,38],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-8273e61f91c4d9d1c833\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-8273e61f91c4d9d1c833\">{\"x\":{\"values\":[12,24,33,23,24.34,23,18,17,18,17,34,19,21,22,44,20,17.09,22,22,30,19,38,23,24,18,21,48,22,25,18,24.02,24,30,21,38,23,33,30,26,28,47,25,24,21,29.09,24,34,22,26,21,27,43,24,41,17,25,28,23,36,33,24,21,28,32,22,19,16,28,14,18.85,23,16,18,21,13,14,19,24,18,14,22,12,20,21,26,14,16,12,17,18,15,18,23,13,23,13,16,13,19,13,15,10,13,12,16,10,17,14,19,9,11,12,15,7,14,11,13,8,20,15,13,23,10,12,12,6,11,11,5,13,13,11,17,16,15,20,11,9,12,9,12,13,16,20,21,22,21,11,12,19,11,17,22,17,15,15,23,16,20,21,16,10,27,16,17,17,18,20,16,22,15,16,18,17,12,22,17,13,17,15,23,13,23,18,18,23,21,17,16,17,12,16,17,18,16,20,13,13,18,26,23,19,22,23,25,25,23,15,17,16,17],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-1826cf67455e96caf386\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-1826cf67455e96caf386\">{\"x\":{\"values\":[75,88,74,78,77,84,89,84,85,75,79,86,81,82,84,88,86,80,83,89,85,82,82,86,92,90,94,89,85,85,87,91,83,83,89,89,86,91,85,84,82,73,85,87,94,86,89,88,89,88,85,90,91,86,88,88,87,88,86,83,80,87,89,91,82,91,85,87,84,83.77,81,86,77,83,89,83,78,87,87,85.91,81,86,83.59999999999999,83,90,83,85,91,86,83,81.95999999999999,81,84,85.09999999999999,79,81,89,84,88,83.3,77,80,84,82,84.98999999999999,79,87,82.7,81,87,80,76,81.8,87,83.11,77,88,77.5,86,87,75,77.8,85,83.36,79,88,89,78,80.59999999999999,77,93,81,80.3,82,84.12,78,90,80.59999999999999,86,85,91,77,85,82.2,84,78,82,83,84,89,81.7,87,79,86,81.59999999999999,83,81.81999999999999,78,81,81.09999999999999,78,77,82.59999999999999,81,78,90,74,81,84,84.67,77,82,83,81.8,80,87,78,80,76,79,86,83,79,81.02,70,78,86,86,78,82,83,75,79,84,74,77,77,68,76,76,79.11,72,82,84,77,83,77.90000000000001,80,79.2,78.45999999999999,73,78,74,86,73,86,78,80,81,75,74,86,86,77,86,84,83,75.36,82,74,80,86,78,87,77,81,83,76,66,76,77,87,80,85,84,77,80,82,76,87,81,87,79,87,79,78,78,91,88,80,76,77,82,78,82,80,88,82,80,77,84,81.56999999999999,77,78,80,89,77,84,77,78,79,89,79,86,88,78,85,77,89,79,84,77.70999999999999,76,86,88,76,80,88,74,81.31999999999999,77,80,88,89,77,81,88,79,81,76,77,72,74,85,84,77,80,72,80,82,73,83,83,82.09,76,82,83,85,73,82,74,80,80,72,76,75.34,77,79,73,59,80],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-276b31c88de0796acdfe\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-276b31c88de0796acdfe\">{\"x\":{\"values\":[45,69,52,56,61,52,55.65,67,52,51,58,52,53,67,62,53,62,70,52,54,68,51,60,62,65,51,68,55,64,52,56,65,72,73,58,52,54,59.13,56,62,64,54,65,64,52,64,69,64,66,54,57,71,52,66,52,54,59.08,55,64,65,55,54,53,54,68,53,64,61,55,59,52,64,62,53,55,52,57,55.8,66,60,52,63,48,53,53,56,53,52.27,51,51,47,54,47,51,53,51,55,57,51,47,64,55,46,55,52,48,49,42,56,48,47,48,56,59,47,49,46,57,49,57,43,56,45,48,47,45,45,46,50,43,52,54,45,51,56,45,48,44,47,45,45,49,47,47,44,43,44,43,46,50,42,57,53,54,45,43,52,50,42,42,44,41,39,43,40,45,44,45,40,43,38,50,44,41,37,45,43,47,43,40,47,44,47,42,44,44,46,55,43,47,56,47,49,43,53,46,47,53,45,51,44,48,47,43,46,58,49,50,44,44,48,46,53,45,51,51,46,42,47,44,59,48,53,45,41,47,44,43,56,47,44,46,44,50,44,45,53,42,47,50,42,46,42,38,56,43,47,46,45,58,50,45,46,52,45,53,55,50,47,55,55,48,47,48,49,47,38],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-aef70faf4ecddd5bb939\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-aef70faf4ecddd5bb939\">{\"x\":{\"values\":[42,57,39,39,39,54,45,48,37,38,41,47,42,42,39,41,44,43,46,43,44,44,51,45,47,56,41,55,51,60,50,49,49,55,53,49,48,45,48,59,51,53,53,50,43,50.7,44,43,49,50,51,52,50,44,50,50,48,53,43,48,51,47,46.6,50,49,50,45,46,46,42,48,42,45,47,44,47.1,54,45,50,47,45.4,42,45,48,46.94,45,44,48.3,44,48,46,45,41,43,47,44,45,45.35,46,48,45.2,40,44,47,43,46,50,47.2,44,45.35,43,41,42,42,46,44,41,45,43,42,43.3,41,40,44,43,42,41.66,42,42,43.5,46,42,42,42,44.9,45,41,43.59,44,43,44,45,46,39,42.2,42,42,42.68,42,41,39,40,43.2,42,49,43,42.8,45,42.86,41,42,46,43.1,43,42,42,40,45,41.8,41,40,42,38,41,42,39,42,41,39,45,38,43,41.4,44,43,41.27,41,41,43.1,37,39,37,45.1,40,40,40,41,37,41,39,37,45.56,39,39,41,39.1,45,45,40,32,37,39,41,39,43,41,39,37,39.73,37,33,44,44,40,38,38,37,38,38,43,34,36,38,32,35,38,38,38.71,37,43,43,35,42,40.1,35,39,37.8,40,38,37,34,43,37,44,40,38,41,37,38,38,42,42,36,40,39,40,38,39.47,36,38,40,38,36,44,37,39,39,39,39,31,35,36,44,38,39,40,42,40,40,44,35,44,39,44,36,42,40,30,38,39.36,42,43,44,38,38,37,40,41,45,39,35,43,38,39,40,38,39,40,41.01,41,40,39,43,33,39,40,38,39.45,35,39,40,42,44,39,44,41,44,43,43,39,36,41,35,44,40,37,38,41.33,40,37,42,43,33,38,41,40,39,38,44,31,39,41.21,40,39,38,38,44,37,40,40,39,43,38,42,39,38,36,37,38,37,38,38,39,40,36,38,40,37,37,40,37,40,39,38,43.52,38,38,37,41,39,36,38,38,39,39,38,35,38,41.29,39,38,36,42,29,40],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-96be079d7b624c969cc1\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-96be079d7b624c969cc1\">{\"x\":{\"values\":[79,84,81,87,84,79.8,89,86,85,89,86,86,84,85,82,82],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-5536d7f3e303580b5fd2\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-5536d7f3e303580b5fd2\">{\"x\":{\"values\":[25,25,19,12,3.49,14,4,5,4,5.2,4,3,20],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-17517da454b7e3829f99\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-17517da454b7e3829f99\">{\"x\":{\"values\":[49,55,52,51,50,43.6,58,46,49,50,57,48,50,42,41,32],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-a4dd48432523dfa2578b\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-a4dd48432523dfa2578b\">{\"x\":{\"values\":[34,47,40,51,37.8,41,31,38,41,39.4,37,36,38],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-d4e1caddb93d5f20f90a\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-d4e1caddb93d5f20f90a\">{\"x\":{\"values\":[28,34,32,22,16,26.8,16,21,20,21,19,17,15,17,16,17],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-70d0c81f8cb950e9c510\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-70d0c81f8cb950e9c510\">{\"x\":{\"values\":[77,88,90,87,86.95999999999999,88,78,86,87,87,89,82,82],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-4a1b5fbdae70cf318190\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-4a1b5fbdae70cf318190\">{\"x\":{\"values\":[53,59,56,53,51,42,50.9,50,51,52,54,52,52,51,51,49,49],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-9601b2fea8c11e62564f\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-9601b2fea8c11e62564f\">{\"x\":{\"values\":[42,45,53,49,45,48,45,53,44,46,49,45,41.06,44,45,41,47,44,42,41,40,41,41,32,40,38,42,36,42,46,41,42,43,43,42,42,40.6,41,44,42,43,43,43,40,41,43,41,42,41,45,42,38.1,42,41,41,40,47,40],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-5a1205877b1aec74f249\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-5a1205877b1aec74f249\">{\"x\":{\"values\":[89,93,88,91,92,93,87,93,91,94,94,94,90,91,93,89,92,94,97,94,88,94,95,92,92,92,92,95,97,92,93,97,93,90,93,90,94,91,93,90,92,93,86,92,93,93,86,88,93,89,83,88,89,94,91,94,86,84,88,87,87,89,80,83,84,82,77,87,87,80,82,85,89,90,77,84,82,82,80,81,86,79,78,84,89,85,75,84,84,80,88,80,74,85,88,78,71,79,79,71,75,83,83,76,70,82,86,76,82,81,75,85,73,81,83,74,83,82,83,87.29000000000001,77,83,79,85,83,84,74,80,87,81,76,83,80,72,78,60,80,83,79,68,78,85,79,79,83,83,85,70,81,76,81,78,83,85,72,88,85,82,85,82,85,80],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-a5f3fa360b598a2474e2\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-a5f3fa360b598a2474e2\">{\"x\":{\"values\":[15,22,15,10,12,21,13,15,10,18,7,20.8,26,14,24,30,24,23,18,17,24,18,16,29,14,19,18,17,16,18,26,null,10,18,12,19,17,21,18,18,17,11,15,24,15,15,14,23,12,11,20,10,26,9,10,13,13,12,11,10,13,14,13.2,14,14,14,10,13,12,10,11,13,9,13,12,10,11,25,24,10,11,7,11,6,12,8,7,16,9,9,6,9,20,7,6,5,12,22,8,8,8,10,15,9,7,7,15,12,8,7,5,13,7,5,16,16,6,6,9,8,8,17,13,4,8,8,8,8,10,18,13,10,9,7,9,10,19,7,13,20,7,7,12,8,12,7,5,6,6,4,2,12,9,7,6,9,10,5,6,6,6,8,5,7,12,16,8,4,3,16,19,6],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-36d99b4bfc9e23409b59\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-36d99b4bfc9e23409b59\">{\"x\":{\"values\":[53,55,55,54,63,67,54,52,60,53,64,70,61,62,72,57,60,66,61,50,58,49,61,70,72,72,55,56,66,63,71,58,59,62,67,57,52,62,57,60,56,73,52,56,72,57,50,48,62,53,47,45,41,55,65,44,44,41,53,57,42,48,44,51,40,44,37,38,31,36,42,41,48,41,37,39,44,38,45,41,41,45,32,41,47,35,27,38,37,29,40,43,38,37,38,36,29,38,36,43,38,38,45,39,34,35,40,37,42,34,31,40,42,39,45,35,34,47,42,42.22,36,32,47,40,48,46,28,38,39,42,32,46,36,28,47,31,40,34,46,29,42,44,41,40,45,41,37,27,42,31,39,47,42,47,30,43,43,38,40,48,37,44],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-46b342da6aa90c136351\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-46b342da6aa90c136351\">{\"x\":{\"values\":[34,46,40,37,35,42,43,40,35,43,38,44.3,51,37,45,55,46,48,42,47,47,40,46,48,38,53,51,43,44,37,44,null,34,36,43,38,38,44,46,43,45,35,38,45,37,37,30,48,31,36,40,34,50,35,33,37,37,39,40,33,39,32,30.5,27,34,42,34,42,34,41,42,39,28,37,28,28,32,46,41,43,40,41,32,30,29,36,27,37,31,28,26,34,43,27,35,43,31,38,33,29,33,30,43,34,30,31,40,29,23,21,33,26,22,20,33,39,26,29,27,35,25,41,33,23,44,29,30,27,34,35,36,22,25,29,27,40,37,42,38,41,32,31,36,37,41,34,31,41,44,40,31,45,38,35,35,45,41,44,33,44,45,33,35,34,44,42],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-ff8658445f1db7340a51\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-ff8658445f1db7340a51\">{\"x\":{\"values\":[33,29,30,23,33,44,31,26,34,33,31,44,32,31,41,33,29,39,23,24,29,29,35,41,44,41,35,32,32,31,42,21,28,37,40,33,27,38,33,32,34,35,26,27,37,23,27,22,30,20,21,18,17,16,28,10,20,24,17,27,17,20,17,22,16,19,18,17,25,22,19,24,20,12,18,14,23,21,21,7,15,14,16,16,16,15,15,19,16,22,19,18,18,17,12,15,16,18,17,20,16,21,15,17,21,13,13,17,15,15,25,22,18,19,19,25,16,16,22,12.83,20,20,16,18,25,19,24,18,17,17,24,26,18,18,16,21,19,18,25,22,16,18,15,23,17,17,16,22,18,22,18,24,14,18,20,19,16,21,16,25,18,19],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-5db36de53afa54d50cc2\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-5db36de53afa54d50cc2\">{\"x\":{\"values\":[71,82,79,87,79,82,81,85,79,83,95,83.5,87,81,89,86,86,88,84,87,83,78,85,76,82,85,83,86,88,85,82,null,76,86,89,84,87,85,83,83,88,83,84,84,87,87,86,84,88,80,85,87,83,84,81,81,82,90,89,83,83,83,73.7,83,84,85,76,86,85,82,84,87,79,84,83,81,79,85,79,80,84,86,77,78,81,80,79,86,84,78,76,82,83,78,82,90,84,75,80,73,86,82,76,79,74,81,76,78,74,77,79,81,73,81,77,76,73,76,77,81,73,76,80,75,86,75,81,76,86,78,84,86,81,76,77,80,81,85,83,82,85,84,85,78,84,75,85,85,87,87,85,78,76,82,86,86,78,87,90,84,90,85,85,86,83,76,86,82,78,78,80,82],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-0782e2c9e0d605f634d8\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-0782e2c9e0d605f634d8\">{\"x\":{\"values\":[69,59,61,65,62,60,64,57,60,63,68,60,60,65,66,64,55,58,71,64,69,64,63,54,68,57,63,62,67,65,59,58,59,62,67,67,69,68,65,64,67,64,68,64,62,64,67,61,62,64,62,52.1,61,64,66,56,55,60,67,59,56,56,51,62,59,54,53,54,54,58,61,50,52,54,55,53,57,59,52,55,49,53,51,52,49,46,52,51,50,49,51,55,51.4,45,50,50,47,49,49,43,52,48,45,48,52,51,41,50,51,45,52,47,44,47,48,45,46.9,49,44,41,49,45.9,44.1,46,44,44,51,50,45,42,48,48,46.1,45,47,48,45,51,44,49,52,47,47,50,49,50,49.57,48,44,51,49,52,45,52,49,45,47,52,49,46,52,49,43,47,50,39,48,50,50,41,48,52,46,48,43,51,49,51,42,49,46,50,49,49,53,43,47,51,50,51,43,51,52,50],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-f860bd8092612fe03926\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-f860bd8092612fe03926\">{\"x\":{\"values\":[39,48,44,43,42,47,45,42,45,50,41,47,41,49.1,53,42,52,56,46,52,51,52,48,49,50,44,47,50,43,49,48,48,48,47,47,49,51,40,48,46,48,51,50,48,48,48,42,46,50,47,51,47,44,46,46,51,45,40,49,44,51,43,42,42,43,44,45.2,42,41,44,44,38.9,43,43,45,46,39,46,44,43,52,44,46,44,37,37,45,43,41,41,50,46,42,44,41,40,37,43,44,41,36,44,42,36,43,34,44.1,41,37,47,37,40,42,41,44,44,38,34,38,42,43,38,34,40,42,42,38,37,36,36,35,43,40,34,37,41,42,34,36,38,41,35,43,44,40,33,42,37,40,37,43,43,43,46,40,33,40,38,41,45,41,44,47,41,41,41,44,43,41,37,43,43,41,38,41,40,41,41,39,39,43,40,40,41,43,40,40,43,42,38,40,45,43,42,44,40,45,42,37,39,44,43,43,47,40,40],\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-05fd3366b2e5d583d70e\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-05fd3366b2e5d583d70e\">{\"x\":{\"values\":60,\"options\":{\"type\":\"line\",\"height\":20,\"width\":60},\"width\":60,\"height\":20},\"evals\":[],\"jsHooks\":[]}<\/script>"],["<b>Over half approve<\/b>","<b>Less than half approve<\/b>","<b>Less than half approve<\/b>","<b>Less than half approve<\/b>","<b>Less than half approve<\/b>","<b>Over half approve<\/b>","<b>Over half approve<\/b>","<b>Less than half approve<\/b>","<b>Over half approve<\/b>","<b>Less than half approve<\/b>","<b>Less than half approve<\/b>","<b>Less than half approve<\/b>","<b>Less than half approve<\/b>","<b>Over half approve<\/b>","<b>Over half approve<\/b>","<b>Less than half approve<\/b>","<b>Over half approve<\/b>","<b>Less than half approve<\/b>","<b>Less than half approve<\/b>","<b>Less than half approve<\/b>","<b>Less than half approve<\/b>","<b>Over half approve<\/b>","<b>Over half approve<\/b>","<b>Less than half approve<\/b>","<b>Over half approve<\/b>"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Population<\/th>\n      <th>Party<\/th>\n      <th>Subject<\/th>\n      <th>Mean Approval (%)<\/th>\n      <th>Mean Disapproval (%)<\/th>\n      <th>Approval Trend<\/th>\n      <th>Approval Status<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"lengthMenu":[5,10,15],"searching":true,"ordering":true,"dom":"Bfrtip","buttons":["copy","csv","excel","pdf"],"columnDefs":[{"className":"dt-right","targets":[3,4]},{"name":"Population","targets":0},{"name":"Party","targets":1},{"name":"Subject","targets":2},{"name":"Mean Approval (%)","targets":3},{"name":"Mean Disapproval (%)","targets":4},{"name":"Approval Trend","targets":5},{"name":"Approval Status","targets":6}],"order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data, displayNum, displayIndex, dataIndex) {\nvar value=data[1]; $(row).css({'background-color':value == \"R\" ? \"pink\" : value == \"D\" ? \"lightblue\" : null});\nvar value=data[6]; $(this.api().cell(row, 6).node()).css({'font-weight':'bold'});\n}"}},"evals":["options.rowCallback"],"jsHooks":[]}</script>
+Footnote: Data represents mean approval and disapproval percentages grouped by population, party, and subject.
+</div>
+</div>
+</div>
+<p>We can see from the table that regardless of voter status (adults, registered voters, likely voters), over 50% of Republicans approve of Trump’s COVID-19 response, and less than 50% approve of Biden. Similary, over 50% of Democrats approve of Biden while less than 50% approve of Trump.</p>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
