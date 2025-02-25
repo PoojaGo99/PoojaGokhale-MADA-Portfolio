@@ -201,5 +201,5 @@ interactive_table <- interactive_table %>%
 interactive_table
 
 ```
-We can see from the table that regardless of voter status (adults, registered voters, likely voters), over 50% of Republicans approve of Trump's COVID-19 response, and less than 50% approve of Biden.
-Similary, over 50% of Democrats approve of Biden while less than 50% approve of Trump.
+
+We can see from the table that regardless of voter status (adults, registered voters, likely voters), over 50% of Republicans approve of Trump's COVID-19 response, and less than 50% approve of Biden. Similary, over 50% of Democrats approve of Biden while less than 50% approve of Trump.

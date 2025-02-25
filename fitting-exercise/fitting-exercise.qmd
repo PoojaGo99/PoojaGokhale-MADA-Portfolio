@@ -1,0 +1,365 @@
+---
+title: "Fitting Exercise"
+---
+
+Load the data into R
+
+```{r}
+library(here)
+drug_mag = read.csv(here("fitting-exercise", "Mavoglurant_A2121_nmpk.csv"))
+head(drug_mag)
+```
+Plot the data: 
+
+```{r}
+library(ggplot2)
+ggplot(drug_mag, aes(x=TIME, y=DV, group=ID, color=DOSE)) +
+  geom_line() +
+  theme_minimal() +
+  labs(title = "DV over time by dose",
+       x = "Time",
+       y = "DV") +
+  theme(legend.title = element_blank())
+
+```
+
+Remove all entries where OCC=2
+```{r}
+library(dplyr)
+drug_mag1 = drug_mag %>%
+  filter(OCC==1)
+```
+
+Exclude observations with time = 0
+```{r}
+drug_mag2 = drug_mag1 %>%
+  filter(TIME!= 0)
+```
+
+Compute the sum
+```{r}
+Y= drug_mag2 %>%
+  group_by(ID) %>%
+  summarize(Y = sum(DV, na.rm = TRUE))
+print(Y)
+```
+
+Create a dataframe with time = 0
+```{r}
+drug_mag3 = drug_mag1 %>%
+  filter(TIME == 0)
+```
+
+Join the data
+```{r}
+drug_mag_joined <- left_join(drug_mag3, Y, by = "ID")
+```
+
+Convert race and sex to factor variables, and retain necessary variables only.
+
+```{r}
+drug_mag_final = drug_mag_joined %>%
+  mutate(
+    RACE=factor(RACE),
+    SEX=factor(SEX)) %>%
+  select(ID, Y, DOSE, AGE, SEX, RACE, WT, HT)
+```
+
+Create a summary table:
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(kableExtra)
+
+# Summary stats for continuous variables
+summary_stats <- drug_mag_final %>%
+  summarize(
+    Mean_Y = mean(Y, na.rm = TRUE),
+    SD_Y = sd(Y, na.rm = TRUE),
+    Mean_AGE = mean(AGE, na.rm = TRUE),
+    SD_AGE = sd(AGE, na.rm = TRUE),
+    Mean_WT = mean(WT, na.rm = TRUE),
+    SD_WT = sd(WT, na.rm = TRUE),
+    Mean_HT = mean(HT, na.rm = TRUE),
+    SD_HT = sd(HT, na.rm = TRUE),
+    Mean_Dose = mean(DOSE, na.rm = TRUE),
+    SD_Dose = sd(DOSE, na.rm = TRUE)
+  ) %>%
+  pivot_longer(cols = everything(),
+               names_to = c(".value", "Measure"),
+               names_sep = "_") %>%
+  mutate(
+    Mean = format(round(Mean, 2), nsmall = 2),
+    SD = format(round(SD, 2), nsmall = 2)
+  ) %>%
+  select(Measure, Mean, SD)
+
+# Bigger blank row for separation
+blank_row <- tibble(Measure = " ", Mean = " ", SD = " ")
+
+# Subheading row for percentage-based variables
+percent_heading <- tibble(Measure = "Categorical Variables", Mean = " ", SD = " ")
+
+# Percentage for SEX
+sex_summary <- drug_mag_final %>%
+  count(SEX) %>%
+  mutate(Percent = round(n / sum(n) * 100, 1)) %>%
+  summarize(
+    Measure = "SEX",
+    Mean = paste0("SEX = 1: ", Percent[SEX == 1], "%"),
+    SD = paste0("SEX = 2: ", Percent[SEX == 2], "%")
+  )
+
+# Percentage for RACE
+race_summary <- drug_mag_final %>%
+  count(RACE) %>%
+  mutate(Percent = round(n / sum(n) * 100, 1)) %>%
+  summarize(
+    Measure = "RACE",
+    Mean = paste0("RACE = 1: ", Percent[RACE == 1], "%"),
+    SD = paste0("RACE = 2: ", Percent[RACE == 2], "%")
+  )
+
+# Combine all the tables
+final_summary <- bind_rows(summary_stats, blank_row, blank_row, percent_heading, blank_row, sex_summary, race_summary)
+
+# Display the final table with clear sectioning and subheadings
+final_summary %>%
+  kable("html", col.names = c("Measure", "Mean", "SD"),
+        caption = "Summary Statistics and Percentages") %>%
+  add_header_above(c(" " = 1, "Continuous Variables" = 2)) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>%
+  row_spec(nrow(summary_stats) + 3, bold = TRUE, color = "black", hline_after = TRUE) %>% # Style the percentage-based subheading
+  row_spec(nrow(summary_stats) + 1, hline_after = TRUE) # Visual break before percentages
+
+
+```
+
+We see that the mean age is 33.26. The mean height and weight are 83.60 and 1.76 - thus the mean BMI is 26.98 (overweight).
+
+
+Scatterplots:
+
+```{r}
+library(ggplot2)
+
+# Scatterplot of Y vs. AGE
+ggplot(drug_mag_final, aes(x = AGE, y = Y)) +
+  geom_point(color = 'blue') +
+  labs(title = "Scatterplot of Y vs. AGE", x = "AGE", y = "Total Drug (Y)") +
+  theme_minimal()
+
+# Scatterplot of Y vs. WT (weight)
+ggplot(drug_mag_final, aes(x = WT, y = Y)) +
+  geom_point(color = 'red') +
+  labs(title = "Scatterplot of Y vs. WT", x = "Weight (WT)", y = "Total Drug (Y)") +
+  theme_minimal()
+
+# Scatterplot of Y vs. HT (height)
+ggplot(drug_mag_final, aes(x = HT, y = Y)) +
+  geom_point(color = 'green') +
+  labs(title = "Scatterplot of Y vs. HT", x = "Height (HT)", y = "Total Drug (Y)") +
+  theme_minimal()
+
+```
+
+Age and total drug do not seem to have any linear relationship.
+Similarly, no clear relationship is seem between total drug and weight or height.
+
+Boxplots:
+
+```{r}
+# Boxplot of Y vs. SEX
+ggplot(drug_mag_final, aes(x = factor(SEX), y = Y)) +
+  geom_boxplot(fill = 'lightblue') +
+  labs(title = "Boxplot of Y vs. SEX", x = "SEX", y = "Total Drug (Y)") +
+  theme_minimal()
+
+# Boxplot of Y vs. RACE
+ggplot(drug_mag_final, aes(x = factor(RACE), y = Y)) +
+  geom_boxplot(fill = 'lightgreen') +
+  labs(title = "Boxplot of Y vs. RACE", x = "RACE", y = "Total Drug (Y)") +
+  theme_minimal()
+
+```
+Sex = 2 has a slightly lower mean total drug administered. The mean total drug by race seems to be the same.
+
+Distributions:
+```{r}
+library(ggplot2)
+library(patchwork) # To combine plots
+
+# Histogram for continuous variables
+p1 <- ggplot(drug_mag_final, aes(x = Y)) +
+  geom_histogram(fill = 'steelblue', color = 'black', bins = 30) +
+  labs(title = "Distribution of Total Drug (Y)", x = "Total Drug (Y)", y = "Count") +
+  theme_minimal()
+
+p2 <- ggplot(drug_mag_final, aes(x = AGE)) +
+  geom_histogram(fill = 'darkorange', color = 'black', bins = 30) +
+  labs(title = "Distribution of Age", x = "Age", y = "Count") +
+  theme_minimal()
+
+p3 <- ggplot(drug_mag_final, aes(x = WT)) +
+  geom_histogram(fill = 'forestgreen', color = 'black', bins = 30) +
+  labs(title = "Distribution of Weight (WT)", x = "Weight", y = "Count") +
+  theme_minimal()
+
+p4 <- ggplot(drug_mag_final, aes(x = HT)) +
+  geom_histogram(fill = 'purple', color = 'black', bins = 30) +
+  labs(title = "Distribution of Height (HT)", x = "Height", y = "Count") +
+  theme_minimal()
+
+p5 <- ggplot(drug_mag_final, aes(x = DOSE)) +
+  geom_histogram(fill = 'darkred', color = 'black', bins = 30) +
+  labs(title = "Distribution of Dose", x = "Dose", y = "Count") +
+  theme_minimal()
+
+# Bar plots for categorical variables
+p6 <- ggplot(drug_mag_final, aes(x = factor(SEX))) +
+  geom_bar(fill = 'skyblue', color = 'black') +
+  labs(title = "Distribution of Sex", x = "Sex", y = "Count") +
+  theme_minimal()
+
+p7 <- ggplot(drug_mag_final, aes(x = factor(RACE))) +
+  geom_bar(fill = 'pink', color = 'black') +
+  labs(title = "Distribution of Race", x = "Race", y = "Count") +
+  theme_minimal()
+
+# Combine the plots
+(p1 + p2) / (p3 + p4) / (p5 + p6) / p7
+
+```
+
+The distributions are as expected. Weight is normally distributed. Height is slightly skewed. 
+Age seems to have a bimodal distribution.
+
+Correlation plots:
+```{r}
+library(GGally)
+library(ggplot2)
+
+# Select only continuous variables for pair plots
+continuous_vars <- drug_mag_final %>%
+  select(Y, AGE, WT, HT, DOSE)
+
+# Pair plot with customized bin width
+ggpairs(continuous_vars, 
+        lower = list(continuous = wrap("points", alpha = 0.5)),
+        upper = list(continuous = wrap("cor", size = 4)),
+        diag = list(continuous = wrap("barDiag", fill = "steelblue", binwidth = 5)),
+        title = "Pair and Correlation Plot of Continuous Variables")
+
+```
+The correlation between total drug and weight is significant (-0.210). The drug may have been dosed based on body weight. Other correlations are not relevant to the drug.
+
+
+Model fitting:
+```{r}
+#Dose
+dose_model = lm(Y~DOSE, data=drug_mag_final)
+summary(dose_model)
+```
+We can see that dose is a significant predictor of Y. 
+The R-squared is 0.5225, thus 52.25% of the variation in Y is explained by dose.
+
+
+```{r}
+#All predictors
+full_model = lm(Y~ DOSE + HT + WT + AGE + as.factor(SEX) + as.factor(RACE), data=drug_mag_final)
+summary(full_model)
+```
+We can see that dose and weight are significant predictors of Y.
+The R-squared has increased to 0.6193, F-statistic = 22.57 and p-value < 0.05, thus this model is a better fit than the previous model.
+
+Compare the root mean square error and R-squared:
+```{r}
+#Model 1
+# Get predictions for model 1
+predictions <- predict(dose_model)
+
+# Calculate RMSE
+actuals <- drug_mag_final$Y
+rmse <- sqrt(mean((predictions - actuals)^2))
+
+# Calculate R-squared
+r_squared <- summary(dose_model)$r.squared
+
+# Print results
+cat("RMSE:", round(rmse, 2), "\n")
+cat("R-squared:", round(r_squared, 2), "\n")
+
+
+#Model 2
+# Get predictions for model 2
+predictions <- predict(full_model)
+
+# Calculate RMSE
+actuals <- drug_mag_final$Y
+rmse <- sqrt(mean((predictions - actuals)^2))
+
+# Calculate R-squared
+r_squared <- summary(full_model)$r.squared
+
+# Print results
+cat("RMSE:", round(rmse, 2), "\n")
+cat("R-squared:", round(r_squared, 2), "\n")
+
+
+```
+The RMSE for model 1 is greater than model 2, which means model 2 is a better fit.
+Similarly, R-squared increased, thus model 2 explains 62% of the variation in Y.
+
+Logistic regression:
+Fitting a model to predict SEX using DOSE
+```{r}
+logistic_dose_model = glm(SEX~DOSE, data=drug_mag_final, family=binomial)
+summary(logistic_dose_model)
+```
+
+
+We see that obviously, dose is not a significant predictor of sex.
+
+Model with all predictors
+```{r}
+full_sex_model = glm(SEX~DOSE + Y + HT + WT + AGE + as.factor(RACE), data=drug_mag_final, family=binomial)
+summary(full_sex_model)
+```
+Here, height is a significant predictor of sex. This makes sense since women are on average shorter than men. 
+
+Accuracy and ROC-AUC:
+```{r}
+library(pROC)
+
+# Model 1: Dose only
+predicted_probs1 <- predict(logistic_dose_model, type = "response")
+predicted_sex1 <- ifelse(predicted_probs1 > 0.5, 2, 1)
+
+accuracy1 <- mean(predicted_sex1 == drug_mag_final$SEX)
+cat("Model 1 - Accuracy:", round(accuracy1 * 100, 2), "%\n")
+
+roc_curve1 <- roc(drug_mag_final$SEX, predicted_probs1)
+auc_value1 <- auc(roc_curve1)
+cat("Model 1 - ROC-AUC:", round(auc_value1, 3), "\n")
+
+# Model 2: Full model (dose + other predictors)
+predicted_probs2 <- predict(full_sex_model, type = "response")
+predicted_sex2 <- ifelse(predicted_probs2 > 0.5, 2, 1)
+
+accuracy2 <- mean(predicted_sex2 == drug_mag_final$SEX)
+cat("Model 2 - Accuracy:", round(accuracy2 * 100, 2), "%\n")
+
+roc_curve2 <- roc(drug_mag_final$SEX, predicted_probs2)
+auc_value2 <- auc(roc_curve2)
+cat("Model 2 - ROC-AUC:", round(auc_value2, 3), "\n")
+
+```
+We see that accuracy for Model 2 is greater than Model 1, thus model 2 is able to predict sex with greater accuracy (94.17% of the time).
+
+Receiver operating characteristic - area under the curve (ROC-AUC) tells us how well the model is able to distinguish between SEX = 1 and SEX = 2.
+For model 1, ROC-AUC = 0.592, so it is only slightly better at distinguishing compared to a random model.
+For model 2, ROC-AUC = 0.98, thus it is excellent at distinguishing between the sexes.
+
+
+
