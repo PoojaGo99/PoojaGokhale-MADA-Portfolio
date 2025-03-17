@@ -362,4 +362,241 @@ For model 1, ROC-AUC = 0.592, so it is only slightly better at distinguishing co
 For model 2, ROC-AUC = 0.98, thus it is excellent at distinguishing between the sexes.
 
 
+Exercise 10: Model Improvement
+
+Remove the variable race:
+```{r}
+drug_mag_final$RACE <- NULL
+```
+
+We now have a dataset with 120 observations and 6 variables.
+
+Now, we set a random seed for reproducibility
+```{r}
+rngseed = 1234
+```
+
+Now, we split the data - 75% train and 25% test set:
+```{r}
+# Load the rsample package (part of tidymodels)
+library(rsample)
+
+# Set the seed for reproducibility
+set.seed(rngseed)
+
+# Split the data into 75% train and 25% test
+data_split <- initial_split(drug_mag_final, prop = 3/4)
+
+# Create data frames for the two sets
+train_data <- training(data_split)  # 75% training set
+test_data  <- testing(data_split)   # 25% test set
+```
+
+Now, we fit two models to the training data:
+```{r}
+library(tidymodels)
+
+# Model 1: Only DOSE
+dose_only_model <- linear_reg() %>%
+  set_engine("lm") %>%
+  set_mode("regression") %>%
+  fit(Y ~ DOSE, data = train_data)
+
+dose_only_predictions <- predict(dose_only_model, new_data = train_data) %>%
+  bind_cols(train_data)
+
+dose_only_rmse <- dose_only_predictions %>%
+  rmse(truth = Y, estimate = .pred)
+
+# Model 2: All predictors
+full_predictors_model <- linear_reg() %>%
+  set_engine("lm") %>%
+  set_mode("regression") %>%
+  fit(Y ~ DOSE + HT + WT + AGE + as.factor(SEX), data = train_data)
+
+full_predictors_predictions <- predict(full_predictors_model, new_data = train_data) %>%
+  bind_cols(train_data)
+
+full_predictors_rmse <- full_predictors_predictions %>%
+  rmse(truth = Y, estimate = .pred)
+
+# Null Model
+null_model <- null_model() %>%
+  set_engine("parsnip") %>%
+  set_mode("regression") %>%
+  fit(Y ~ 1, data = train_data)
+
+null_predictions <- predict(null_model, new_data = train_data) %>%
+  bind_cols(train_data)
+
+null_rmse <- null_predictions %>%
+  rmse(truth = Y, estimate = .pred)
+
+# Print all RMSE results in the desired order
+cat("DOSE-only Model RMSE:", dose_only_rmse$.estimate, "\n")
+cat("Full Predictors Model RMSE:", full_predictors_rmse$.estimate, "\n")
+cat("Null Model RMSE:", null_rmse$.estimate, "\n")
+```
+We see that the highest RMSE value is observed with the null model, followed by the dose-only model, followed by the model using all the predictors. Since the model with all the predictors has the lowest RMSE, this model provides the best overall fit.
+
+Now, we move on to the cross-validation part:
+```{r}
+# Set the random seed
+set.seed(rngseed)
+
+# Splitting the data into training and test sets
+data_split <- initial_split(drug_mag_final, prop = 0.75)
+train_data <- training(data_split)
+test_data  <- testing(data_split)
+
+```
+
+Now, we perform the 10-fold cross-validation
+```{r}
+library(tidymodels)
+
+# Set the random seed for reproducibility
+set.seed(rngseed)
+
+# Create a 10-fold cross-validation object
+cv_folds <- vfold_cv(train_data, v = 10)
+
+# Model 1: Dose as predictor
+dose_only_cv_model <- linear_reg() %>%
+  set_engine("lm") %>%
+  set_mode("regression")
+
+# Fit and evaluate Model 1 using 10-fold CV
+dose_only_cv_results <- fit_resamples(
+  dose_only_cv_model,
+  Y ~ DOSE,
+  resamples = cv_folds,
+  metrics = metric_set(yardstick::rmse)  # Pass the metric function, not a string
+)
+
+# Extract the average RMSE across all folds
+dose_only_cv_rmse <- dose_only_cv_results %>%
+  collect_metrics() %>%
+  filter(.metric == "rmse") %>%
+  pull(mean)
+
+cat("DOSE-only Model Average RMSE (10-fold CV):", dose_only_cv_rmse, "\n")
+
+
+# Model 2: All predictors
+# Specify the linear model
+full_predictors_cv_model <- linear_reg() %>%
+  set_engine("lm") %>%
+  set_mode("regression")
+
+# Fit and evaluate Model 2 using 10-fold CV
+full_predictors_cv_results <- fit_resamples(
+  full_predictors_cv_model,
+  Y ~ DOSE + HT + WT + AGE + as.factor(SEX),
+  resamples = cv_folds,
+  metrics = metric_set(yardstick::rmse)  # Wrap rmse in metric_set()
+)
+
+# Extract the average RMSE across all folds
+full_predictors_cv_rmse <- full_predictors_cv_results %>%
+  collect_metrics() %>%
+  filter(.metric == "rmse") %>%
+  pull(mean)
+
+cat("Full Predictors Model Average RMSE (10-fold CV):", full_predictors_cv_rmse, "\n")
+```
+The RMSE for the dose-only model decreased from 702 to 690, while that for the model with all the predictors increased from 627 to 645. 
+Thus, using cross-validation improved the fit of one model.
+
+Now, we compute standard error of the RMSE:
+```{r}
+# Extract RMSE for each fold for Model 1
+dose_only_cv_rmse_folds <- dose_only_cv_results %>%
+  collect_metrics(summarize = FALSE) %>%
+  filter(.metric == "rmse")
+
+# Compute average RMSE and standard error for Model 1
+dose_only_cv_rmse <- mean(dose_only_cv_rmse_folds$.estimate)
+dose_only_cv_rmse_se <- sd(dose_only_cv_rmse_folds$.estimate) / sqrt(nrow(dose_only_cv_rmse_folds))
+
+# Extract RMSE for each fold for Model 2
+full_predictors_cv_rmse_folds <- full_predictors_cv_results %>%
+  collect_metrics(summarize = FALSE) %>%
+  filter(.metric == "rmse")
+
+# Compute average RMSE and standard error for Model 2
+full_predictors_cv_rmse <- mean(full_predictors_cv_rmse_folds$.estimate)
+full_predictors_cv_rmse_se <- sd(full_predictors_cv_rmse_folds$.estimate) / sqrt(nrow(full_predictors_cv_rmse_folds))
+
+# Print results
+cat("DOSE-only Model RMSE Standard Error:", dose_only_cv_rmse_se, "\n\n")
+cat("Full Predictors Model RMSE Standard Error:", full_predictors_cv_rmse_se, "\n")
+
+
+```
+We can see that the RMSE standard error for the model with all the predictors is smaller, indicating that it is a more robust model compared to the dose-only model.
+
+Now, we run the code again using a different random seed:
+```{r}
+library(tidymodels)  # Load tidymodels (includes rsample, parsnip, yardstick, etc.)
+
+# Set a new random seed for reproducibility
+set.seed(5678)  # Changed from rngseed = 1234 to 5678
+
+# Create a 10-fold cross-validation object
+cv_folds <- vfold_cv(train_data, v = 10)
+
+# Define the models with new names
+model_dose_only <- linear_reg() %>%
+  set_engine("lm") %>%
+  set_mode("regression")
+
+model_full_predictors <- linear_reg() %>%
+  set_engine("lm") %>%
+  set_mode("regression")
+
+# Fit and evaluate Model 1 (DOSE-only) using 10-fold CV
+results_dose_only <- fit_resamples(
+  model_dose_only,
+  Y ~ DOSE,
+  resamples = cv_folds,
+  metrics = metric_set(yardstick::rmse)  # Use RMSE as the metric
+)
+
+# Fit and evaluate Model 2 (Full Predictors) using 10-fold CV
+results_full_predictors <- fit_resamples(
+  model_full_predictors,
+  Y ~ DOSE + HT + WT + AGE + as.factor(SEX),
+  resamples = cv_folds,
+  metrics = metric_set(yardstick::rmse)  # Use RMSE as the metric
+)
+
+# Extract RMSE for each fold for Model 1 (DOSE-only)
+rmse_folds_dose_only <- results_dose_only %>%
+  collect_metrics(summarize = FALSE) %>%
+  filter(.metric == "rmse")
+
+# Compute average RMSE and standard error for Model 1 (DOSE-only)
+avg_rmse_dose_only <- mean(rmse_folds_dose_only$.estimate)
+se_rmse_dose_only <- sd(rmse_folds_dose_only$.estimate) / sqrt(nrow(rmse_folds_dose_only))
+
+# Extract RMSE for each fold for Model 2 (Full Predictors)
+rmse_folds_full_predictors <- results_full_predictors %>%
+  collect_metrics(summarize = FALSE) %>%
+  filter(.metric == "rmse")
+
+# Compute average RMSE and standard error for Model 2 (Full Predictors)
+avg_rmse_full_predictors <- mean(rmse_folds_full_predictors$.estimate)
+se_rmse_full_predictors <- sd(rmse_folds_full_predictors$.estimate) / sqrt(nrow(rmse_folds_full_predictors))
+
+# Print results
+cat("DOSE-only Model Average RMSE (10-fold CV):", avg_rmse_dose_only, "\n")
+cat("DOSE-only Model RMSE Standard Error:", se_rmse_dose_only, "\n\n")
+
+cat("Full Predictors Model Average RMSE (10-fold CV):", avg_rmse_full_predictors, "\n")
+cat("Full Predictors Model RMSE Standard Error:", se_rmse_full_predictors, "\n")
+```
+We can see that the RMSE did not change significantly - for the dose model, it increased from 690 to 693, while for the second model it increased from 645 to 649.
+The standard errors decreased, model 2 is still a better fit than model 1.
+
 
