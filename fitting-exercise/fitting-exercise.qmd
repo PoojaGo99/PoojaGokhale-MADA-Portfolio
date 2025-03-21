@@ -599,4 +599,192 @@ cat("Full Predictors Model RMSE Standard Error:", se_rmse_full_predictors, "\n")
 We can see that the RMSE did not change significantly - for the dose model, it increased from 690 to 693, while for the second model it increased from 645 to 649.
 The standard errors decreased, model 2 is still a better fit than model 1.
 
+# This section added by DOREEN KIBUULE KALEMBE.
+These are our three models
+1. Model with no predictors.
+2. Model with only DOSE as predictor.
+3. Model with ALL predictors.
+
+
+
+```{r}
+# Fitting the models
+null_model <- lm(Y ~ 1, data = train_data) #model
+dose_only_model <- lm(Y ~ DOSE, data = train_data) #model2
+full_predictors_model <- lm(Y ~ DOSE + AGE + SEX + WT + HT, data = train_data) #model3
+
+
+# Generating predictions for each model
+train_data$pred_null <- predict(null_model, newdata = train_data)
+train_data$pred_model1 <- predict(dose_only_model, newdata = train_data)
+train_data$pred_model2 <- predict(full_predictors_model, newdata = train_data)
+
+
+# Creating a data frame with observed and predicted values for three models
+results <- data.frame(
+  Observed = train_data$Y,
+  Predicted_NULL = train_data$pred_null,
+  Predicted_DOSE = train_data$pred_model1,
+  Predicted_ALL = train_data$pred_model2)
+ 
+# printing the results
+head(results) 
+```
+The predicted values of the null, dose and all predictors are gotten.
+
+lets proceed and get some visualisations.
+```{r}
+#Reshape the data into pivot longer version for better ggplot plotting.
+results_long <- results %>%
+  pivot_longer(
+    cols = starts_with("Predicted_"),
+    names_to = "Model",
+    values_to = "Predicted"
+  )
+
+ggplot(results_long, aes(x = Observed, y = Predicted, color = Model, shape = Model)) +
+  geom_point(size = 3, alpha = 0.8) +  
+  geom_abline(slope = 1, intercept = 0, linetype = "solid", color = "blue") +  # Fixed linetype
+  facet_wrap(~ Model, ncol = 3) +  
+  scale_x_continuous(limits = c(0, 5000)) +  
+  scale_y_continuous(limits = c(0, 5000)) +  
+  labs(
+    x = "Observed Values",
+    y = "Predicted Values",
+    title = "Observed vs Predicted Values for Each Model",
+    color = "Model",
+    shape = "Model"
+  ) +
+  theme_bw() +
+  theme(
+    legend.position = "bottom",
+    strip.text = element_text(size = 10, face = "bold")
+  )
+
+```
+
+From the above visualizations, we see that the model with all predictors shows a better fit to our data.
+
+
+Now lets plot residuals vs predicted to see whether we have any patterns in the data of model two.
+```{r}
+
+
+# adding predictions and residuals to the data
+results <- results %>% mutate(Model2_residuals = Predicted_ALL - Observed)
+
+# creating the plot
+ggplot(results, aes(x = Predicted_ALL, y = Model2_residuals)) +
+  geom_point(size = 2, alpha = 0.6, color = "black") +  # adding points for predicted vs residuals
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +  # Add horizontal line at 0
+  labs(
+    x = "Predicted Values (Model 2)",
+    y = "Residuals (Predicted - Observed)",
+    title = "Predicted vs Residuals for Model 2",
+  ) +
+  scale_y_continuous(limits = c(-max(abs(results$Model2_residuals)), max(abs(results$Model2_residuals)))) +  
+  theme_bw() +
+  theme(
+    plot.title = element_text(size = 10, face = "bold"),
+    axis.title = element_text(size = 12),
+    axis.text = element_text(size = 10)
+  )
+```
+
+From the above plot, we notice that we have more negative values than positive values and this could be a problem but we have nothing to do about it. 
+
+```{r}
+# Loading libraries
+library(purrr)
+
+# set the random seed back to rngseed
+set.seed(1234)
+
+# Create 100 bootstrap samples from the training data
+bootstrap_samples <- bootstraps(train_data, times = 100)
+
+# defining a function to fit Model 2 and make predictions
+fit_and_predict <- function(split) {
+  # saving the bootstrap sample
+  bootstrap_data <- analysis(split)
+  
+  # fitting Model 2 (Y ~ DOSE + AGE + SEX + WT + HT) to the bootstrap sample
+  model_2 <- lm(Y ~ DOSE + AGE + SEX + WT + HT, data = bootstrap_data)
+  
+  # making predictions for the original training data
+  predict(model_2, newdata = train_data)
+}
+
+# using the function to each bootstrap sample and storing predictions
+predictions_list <- map(bootstrap_samples$splits, fit_and_predict)
+
+# converting the list of predictions to a matrix (array)
+predictions_matrix <- do.call(rbind, predictions_list)
+
+# calculate median and 95% confidence intervals for each data point
+prediction_summary <- predictions_matrix %>%
+  apply(2, quantile, probs = c(0.025, 0.5, 0.975)) %>%
+  t() %>%
+  as.data.frame() %>%
+  setNames(c("Lower_CI_Median", "Pred_Median", "Upper_CI_Median"))
+```
+
+
+now lets calculate the mean and CIs.
+```{r}
+# calculating mean and 95% confidence intervals for each data point
+mean_confint <- predictions_matrix %>%
+  apply(2, function(x) {
+    mean_val <- mean(x)
+    se <- sd(x) / sqrt(length(x))  # standard error of the mean
+    lower_ci <- mean_val - 1.96 * se  # 95% CI lower bound
+    upper_ci <- mean_val + 1.96 * se  # 95% CI upper bound
+    c(lower_ci, mean_val, upper_ci)
+  }) %>%
+  t()  %>%
+  as.data.frame()  %>%
+  setNames(c("Lower_CI_for_Mean", "Pred_Mean", "Upper_CI_for_Mean"))
+
+# merging median and mean summaries
+prediction_summary <- cbind(prediction_summary, mean_confint)
+
+# adding the observed values from the training data
+prediction_summary$Observed <- train_data$Y
+
+# printing the updated summary
+head(prediction_summary)
+```
+we have found the confidence interval for both the predicted median and mean.  
+
+lets try to visualize it.
+```{r}
+
+# adding the original predictions to the summary table
+prediction_summary$Original_Predictions <- predict(lm(Y ~ DOSE + AGE + SEX + WT + HT, data = train_data), newdata = train_data)
+
+# create the plot
+ggplot(prediction_summary, aes(x = Observed)) +
+  geom_point(aes(y = Original_Predictions), color = "darkgreen", size = 3.5, alpha = 0.8, shape = 16) +  # Original predictions (point estimate)
+  geom_point(aes(y = Pred_Median), color = "black", size = 2, alpha = 0.7, shape = 10) +  # Median of bootstrap predictions (as points)
+  geom_errorbar(aes(ymin = Lower_CI_Median, ymax = Upper_CI_Median), color = "orange", width = 0.2) +  # 95% CI for median
+  geom_abline(slope = 1, intercept = 0, linetype = "solid", color = "red") +  # adding a 45-degree line
+  labs(
+    x = "Observed Values",
+    y = "Predicted Values",
+    title = "Observed values vs Predicted Values with Bootstrap CIs",
+  ) +
+  scale_x_continuous(limits = c(0, max(prediction_summary$Observed, prediction_summary$Upper_CI_Median))) +  # x-axis limits
+  scale_y_continuous(limits = c(0, max(prediction_summary$Observed, prediction_summary$Upper_CI_Median))) +  #y-axis limits
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 16, face = "bold"),
+    axis.title = element_text(size = 14),
+    axis.text = element_text(size = 12)
+  )
+```
+
+Here, we see that Most predicted values increase as observed values increase.some points seem below the line at higher values which could mean that there was potential under estimation however,the predictions appear scattered around the red line, meaning the model does well overall and it is pretty accurate though there could be some variance.
+
+
+
 
