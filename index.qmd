@@ -4,9 +4,7 @@ title: "Pooja Gokhale Data Analysis Website"
 
 **HI!**
 
-### My name is Pooja Gokhale. I am a 2nd year PhD student in the Pharmaceutical
-
-### Health Services, Outcomes and Policy department.
+### My name is Pooja Gokhale. I am a 2nd year PhD student in the Pharmaceutical Health Services, Outcomes and Policy department.
 
 Welcome to **my website** and *data analysis portfolio.*
 

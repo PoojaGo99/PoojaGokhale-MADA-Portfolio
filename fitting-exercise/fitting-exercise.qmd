@@ -605,8 +605,6 @@ These are our three models
 2. Model with only DOSE as predictor.
 3. Model with ALL predictors.
 
-
-
 ```{r}
 # Fitting the models
 null_model <- lm(Y ~ 1, data = train_data) #model
@@ -786,5 +784,64 @@ ggplot(prediction_summary, aes(x = Observed)) +
 Here, we see that Most predicted values increase as observed values increase.some points seem below the line at higher values which could mean that there was potential under estimation however,the predictions appear scattered around the red line, meaning the model does well overall and it is pretty accurate though there could be some variance.
 
 
+# Part 3 - Pooja Gokhale
+We can see that the model with all the predictors has the best performance. It is scattered around the 45 degree line, with not many large deviations or outliers. Using cross-validation, we also found that this model has the lowest RMSE, and thus the best overall fit of the three models. 
+Using bootstrapping, the results were similar, and the 95% CI are narrow, indicating low degree of uncertainty.
+Since the results with bootstarpping are similar to the point estimate, there is limited variability due to sampling and the model is robust.
+In comparison, the model with only dose as predictor does not perform as well. The null model is the most basic model and does not perform well.
+
+Model evaluation using test data:
+
+```{r}
+# Make predictions on the test data
+test_data$pred_model2 <- predict(full_predictors_model, newdata = test_data)
+
+# Create the new data frame
+combined_data <- data.frame(
+  Observed = train_data$Y,  # Column 1: Observed values from training data
+  Pred_Train = train_data$pred_model2,  # Column 2: Predictions from training data
+  Pred_Test = test_data$pred_model2  # Column 3: Predictions from test data
+)
+
+# View the combined data frame
+print(combined_data)
+
+```
+Now, we plot predictions for both train and test data versus the observed values
+
+```{r}
+# Load necessary library
+library(ggplot2)
+
+# Create the plot
+ggplot(combined_data) +
+  geom_point(aes(x = Observed, y = Pred_Train, color = "Training Predictions"), size = 3, alpha = 0.7) +  # Training data points
+  geom_point(aes(x = Observed, y = Pred_Test, color = "Test Predictions"), size = 3, alpha = 0.7) +  # Test data points
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "black") +  # 1:1 reference line
+  labs(
+    title = "Predicted vs Observed",
+    x = "Observed Values",
+    y = "Predicted Values",
+    color = "Dataset"
+  ) +
+  theme_minimal() +
+  scale_color_manual(values = c("Training Predictions" = "blue", "Test Predictions" = "red")) +  # Custom colors
+  coord_fixed(ratio = 1, xlim = range(combined_data$Observed, na.rm = TRUE), ylim = range(combined_data$Observed, na.rm = TRUE))  # Equal axis limits
+```
+
+We see that train and test data is mixed in.
+In general, the model seems to perform better on train data than on test data.
+
+Overall assessment:
+Firs, let's look at model summaries
+```{r}
+summary(dose_only_model)
+summary(full_predictors_model)
+```
 
 
+1. Our model with all the predictors performs better than the null (mean) model. The fit for this model is better than the null model, as evidenced by the plots and RMSE values. The model states that the dose is significantly associated with Y (conc.), which makes sense.
+
+2. Model 1 with only dose is better than the null model. The RMSE is lower, and the graph shows a better fit. This model is probably not usable for any real purpose, since there are other predictors than may influence Y.
+
+3. The model 2 with all the predictors further improves results. Model 2 results indicate that dose, sex and weight are significantly associated with Y (conc.). This also makes sense as dose determines the concentration of the drug, and dose depends upon weight. Females generally have a lower body weight, and thus sex being significant also makes sense. As for the usability of this model, I am not sure. The model does have a good overall fit, however, the sample size is quite small (90 for training data, 120 for the complete data). Additionally, we did not consider other model metrics, R-squared. We also did not use any variable selection methods, and while the model performed okay on the test data, it was not as good as the training data. More data would probably be required to make this model more robust.
