@@ -65,6 +65,12 @@ drug_mag_final = drug_mag_joined %>%
   select(ID, Y, DOSE, AGE, SEX, RACE, WT, HT)
 ```
 
+Save this as an RDS file:
+```{r}
+save_data_location <- here::here("fitting-exercise","drug_mag_final.rds")
+saveRDS(drug_mag_final, file = save_data_location)
+```
+
 Create a summary table:
 
 ```{r}
