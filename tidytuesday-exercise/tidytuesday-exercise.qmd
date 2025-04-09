@@ -1,0 +1,307 @@
+---
+title: "tidytuesday-exercise"
+format: html
+editor: visual
+---
+
+The data for this week's tidy tuesday assignment has been obtained from the Centers for Medicare and Medicaid Services (CMS). The data contains state-level results for medicare.gov "timely and effective care" measurements. Firs, we load the packages that we need.
+
+```{r}
+library(here)
+library(readr)
+library(tidyverse)
+library(tidymodels)
+```
+
+Now, we load the data
+
+```{r}
+tidydata = read_csv(here("tidytuesday-exercise","care_state.csv"))
+```
+
+Now, let's look at the data:
+```{r}
+str(tidydata)
+View(tidydata)
+```
+
+The data dictionary tells us that these are the variables:
+state: state code
+condition: admission condition
+measure_id: ID of thing being measured
+measure_name: Name of thing being measured
+score: score of the measure
+footnote:
+start date
+end date
+
+Let us summarize the data and look for discrepancies:
+```{r}
+table(tidydata$state)
+```
+
+All the states have the same number of entries.
+
+Now, let's look at the admission condition:
+```{r}
+table(tidydata$condition)
+```
+There are no NA's in the conditions.
+
+Now, let's look at the measure ID and measure name:
+```{r}
+table(tidydata$measure_id)
+table(tidydata$measure_name)
+```
+
+Now, let's look at the score:
+```{r}
+summary(tidydata$score)
+```
+We see there are 155 NA's.
+Let us remove the NA's
+
+```{r}
+library(dplyr)
+
+tidydata1 <- tidydata %>% 
+  filter(!is.na(score))
+```
+
+Let us look at the start and end dates:
+```{r}
+summary(tidydata1$start_date)
+summary(tidydata1$end_date)
+```
+There are no NA's or odd values.
+
+Let's look at the Average (median) time patients spent in the emergency department before leaving from the visit by state.
+
+```{r}
+library(dplyr)
+library(ggplot2)
+
+# Filter and summarize
+ed_summary <- tidydata1 %>%
+  filter(grepl("Average time", measure_name, ignore.case = TRUE)) %>%
+  filter(!is.na(score)) %>%
+  group_by(state) %>%
+  summarise(median_time = median(score, na.rm = TRUE)) %>%
+  arrange(median_time)
+
+ggplot(ed_summary, aes(x = state, y = 1, fill = median_time)) +
+  geom_tile() +
+  scale_fill_gradient(low = "white", high = "steelblue") +
+  labs(
+    title = "Heatmap of Median ED Times by State",
+    x = "State",
+    y = "Median Time (minutes)"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+
+```
+We see Puerto Rico has the longest wait time, followed by District of Columbia.
+
+Let's create a table to look at the different measures:
+```{r}
+# Load necessary libraries
+library(knitr)
+library(kableExtra)
+
+# Create a summary table of the 'measure_name' column
+measure_name_summary <- table(tidydata1$measure_name)
+
+# Convert to a data frame
+measure_name_summary_df <- as.data.frame(measure_name_summary)
+
+# Generate a manuscript-quality table with kableExtra
+measure_name_summary_df %>%
+  kable(col.names = c("Measure Name", "Frequency"), 
+        caption = "Summary of Measure Names in the Dataset") %>%
+  kable_styling(bootstrap_options = c("condensed", "responsive"), 
+                full_width = F, 
+                position = "center") %>%
+  row_spec(0, bold = TRUE, font_size = 12) %>%
+  column_spec(1, width = "15em", bold = TRUE) %>%
+  column_spec(2, width = "8em", color = "black") %>%
+  footnote(general = "Table 1: Frequency distribution of 'Measure Name' in the dataset.", 
+           general_title = "Note:")
+
+```
+
+
+The question here is - Is there a relationship between average wait times and the state?
+
+First, let's create a dataset which looks at only 1 measure.
+Since 'Average time patients spent in the emergency department before being sent home' has 96 reports, let's consider this one.
+
+```{r}
+# Load dplyr library
+library(dplyr)
+
+# Filter the dataset for the specific measure name
+tidydata_model <- tidydata1 %>%
+  filter(measure_name == "Average time patients spent in the emergency department before being sent home A lower number of minutes is better (high)")
+```
+
+Now, let's look at the relationship between wait times and state:
+```{r}
+# Fit a linear model with state as the predictor
+model_state <- lm(score ~ state, data = tidydata_model)
+
+# View the summary of the model
+summary(model_state)
+
+```
+We see that District of Columbia, Delaware, Illinois, Massachusetts, Maryland, Maine, New Mexico, New York, Puerto Rico, Rhode Island, and Vermont have significantly higher emergency department wait times.
+
+We see that the R-squared is 0.8619.
+Thus, states can explain 86% of the variation in wait times.
+
+Now, let's explore some ML models:
+First, we split the data into train and test:
+(Ideally, we should use stratification by state to handle possible imbalances, but since the dataset is small (96), this is not possible).
+We also create cv splits.
+```{r}
+# Load necessary packages
+library(tidymodels)
+library(randomForest)
+
+# Ensure factor levels are consistent across training and testing sets
+tidydata_model$state <- factor(tidydata_model$state)
+
+# Split the Data
+set.seed(123)
+data_split <- initial_split(tidydata_model, prop = 0.7)
+train_data <- training(data_split)
+test_data <- testing(data_split)
+
+# Set factor levels for 'state' to include all possible states in both the training and testing sets
+all_states <- levels(tidydata_model$state)  # Get all the levels of the "state" column
+train_data$state <- factor(train_data$state, levels = all_states)
+test_data$state <- factor(test_data$state, levels = all_states)
+
+# Create cross-validation splits from the training data
+cv_splits <- vfold_cv(training(data_split), v = 5)  # 5-fold cross-validation
+```
+
+Now, let's define the models:
+```{r}
+# 1. Linear Model (LM)
+lm_spec <- linear_reg() %>%
+  set_engine("lm")
+
+# 2. Decision tree
+tree_spec <- decision_tree(mode = "regression") %>%
+  set_engine("rpart")
+
+# 3. Random Forest
+rf_spec <- rand_forest(mode = "regression") %>%
+  set_engine("randomForest")
+```
+
+Now, let's create the workflows for the models:
+```{r}
+lm_workflow <- workflow() %>%
+  add_model(lm_spec) %>%
+  add_formula(score ~ state)
+
+tree_workflow <- workflow() %>%
+  add_model(tree_spec) %>%
+  add_formula(score ~ state)
+
+rf_workflow <- workflow() %>%
+  add_model(rf_spec) %>%
+  add_formula(score ~ state)
+```
+
+Now, let's fit the models:
+```{r}
+lm_fit <- lm_workflow %>%
+  fit_resamples(cv_splits, metrics = metric_set(rmse, rsq))
+
+tree_fit <- tree_workflow %>%
+  fit_resamples(cv_splits, metrics = metric_set(rmse, rsq))
+
+rf_fit <- rf_workflow %>%
+  fit_resamples(cv_splits, metrics = metric_set(rmse, rsq))
+```
+
+Now, let's look at the results:
+```{r}
+# Linear Model Evaluation
+lm_results <- collect_metrics(lm_fit)
+lm_results
+
+# Decision Tree Evaluation
+tree_results <- collect_metrics(tree_fit)
+tree_results
+
+# Random Forest Evaluation
+rf_results <- collect_metrics(rf_fit)
+rf_results
+```
+
+We see that the RMSE for the linear regression model is 46.21, for the decision tree model, it is 46.88, and for the random forest model, it is 43.58.
+The R-squared for the linear model is 0.219, for the decision tree, it is 0.17, and for the random forest mode. it is  0.221.
+The random forest model has the lowest RMSE, and thus has the best overall fit.
+However, all the models have low R-squared values, indicating that there are other factors that may explain wait times.
+Thus, state is probably not the only factor impacting wait times.
+
+Our dataset is small, and we do not have many variables in this dataset (such as population, type of hospital, rural vs urban setting, etc.) which may further explain variations in wait times.
+
+The random forest model has the best performance, since it uses an ensemble approach, and can handle non-linear relationships as well.
+
+Let us test the random forest model on the test data:
+```{r}
+library(tidymodels)
+library(ggplot2)
+
+# 1. Train final model
+final_model <- rf_workflow %>% 
+  finalize_workflow(select_best(rf_fit, metric="rmse")) %>% 
+  fit(train_data)
+
+# 2. Get predictions
+predictions <- final_model %>% 
+  predict(test_data) %>% 
+  bind_cols(test_data) %>% 
+  mutate(residual = .pred - score)
+
+# 3. Performance metrics (simple version)
+cat("Model Performance:\n")
+predictions %>% 
+  metrics(truth = score, estimate = .pred) %>% 
+  print()
+
+# 4. Residual plot
+ggplot(predictions, aes(x = .pred, y = residual)) +
+  geom_point() +
+  geom_hline(yintercept = 0, color = "red", linetype = "dashed") +
+  labs(title = "Residual Plot", x = "Predicted", y = "Residuals")
+
+# 5. Actual vs Predicted plot
+ggplot(predictions, aes(x = score, y = .pred)) +
+  geom_point() +
+  geom_abline(slope = 1, intercept = 0, color = "red") +
+  labs(title = "Actual vs Predicted", x = "Actual", y = "Predicted")
+```
+We see that RMSE = 30.8 (lower than train data). Thus, the model performs better on test than train data. This suggests issues with the data (data leakage or other issues). These issues might be resolved with more variables and a larger dataset.
+The model explains 40% of the variation in wait times.
+
+The residual vs predicted plot shows a clear pattern, and thus a problem with the model. This may be due to the lack of different variables.
+Adding more variables would help improve the fit.
+
+The actual vs predicted plot also shows issues with the problem fit.
+More variables, more data, and transformation of variables may help improve the fit.
+
+Thus, in conclusion:
+- Emergency department wait times vary significantly across states.
+- However, states are not able to adequately explain the differences in wait times.
+- Additional variables (population, GDP, type of hospital, rural vs urban setting, etc.) may also contribute.
+- With the given data, random forest model seems to provide the best fit, though this also explains a low percentage of the variation in the wait times.
+- If additional variables were available, we may be able to improve the model fit.
+
+

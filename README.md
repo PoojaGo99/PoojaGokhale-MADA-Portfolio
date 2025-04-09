@@ -1,1 +1,1 @@
-# My website and data analysis portfolio - Module 1 
+This is the Github repository for the [Pooja Gokhale's Modern Applied Data Analysis course] (https://poojago99.github.io/PoojaGokhale-MADA-Portfolio/)
